@@ -1,5 +1,5 @@
 //
-//  JWBridge.h
+//  Bridge.h
 //  textbook
 //
 //  Created by John Wong on 4/12/15.
