@@ -34,63 +34,43 @@ def requesturl(url):
 def fetchbook(indexurl, filename):
     doc = requesturl(indexurl).recs.documents
     name = None
-    titles = []
-    links = []
     pages = []
 
     for node in doc.findChildren("d"):
-        title = node.findChild("t").get_text()
-        link = node.findChild("l").get_text()
+        titlesplit = node.findChild("t").get_text().split("<br>")
         if name is None:
-            name = title
+            name = titlesplit[0]
             continue
+        if len(titlesplit) == 2:
+            pages.append({
+                "title": titlesplit[0].replace("<b>", "").replace("</b>", ""),
+                "page": 0,
+                "link": ""
+            })
+            title = titlesplit[1]
+            pass
+        else:
+            title = titlesplit[0]
+            pass
+        link = node.findChild("l").get_text()
         link = fetchimg(indexurl, link)
-        titles.append(title)
-        links.append(link)
+
         if re.match("\d+", title):
             page = int(title)
         else:
-            page = pages[len(pages) - 1] + 1 if len(pages) > 0 and pages[len(pages) - 1] > 0 else 0
-        pages.append(page)
-        print("%s, %s" % (title, page))
-        pass
-
-    data = []
-    section = None
-    for i in range(len(titles)):
-        titlesplit = titles[i].split("<br>")
-        title0 = titlesplit[0].replace("<b>", "").replace("</b>", "")
-        title = title0 if len(titlesplit) == 1 else titlesplit[1]
-        item = {
+            page = pages[len(pages) - 1]["page"] + 1 if len(pages) > 0 and pages[len(pages) - 1] > 0 else 0
+        pages.append({
             "title": title,
-            "link": links[i],
-            "page": pages[i]
-        }
-        if len(titlesplit) == 1:
-            if re.match("\d+", titlesplit[0]):
-                continue
-            if section:
-                section["rows"].append(item)
-                pass
-            else:
-                data.append({
-                    "header": "",
-                    "rows": [item]
-                })
-                pass
-            pass
-        else:
-            section = {
-                "header": title0,
-                "rows": [item]
-            }
-            data.append(section)
-            pass
+            "link": link,
+            "page": page
+        })
+        print("%s, %s" % (title, page))
         pass
 
     jsonstr = json.dumps({
         "name": name,
-        "index": data})
+        "index": pages
+    })
     with open(filename, "w") as f:
         f.write(jsonstr)
     pass
