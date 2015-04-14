@@ -9,18 +9,19 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
-
-
-    func setBookItem(bookItem: BookItem, )
     
+    var indexes: Array<IndexItem> = []
+    var index: Int = 0
+
+    func setIndexes(indexes: Array<IndexItem>, atIndex index: Int) {
+        self.indexes = indexes
+        self.index = index
+    }
 
     func configureView() {
         // Update the user interface for the detail item.
-        if let label = self.detailDescriptionLabel {
-            label.text = detailItem.title
-        }
+        let detailItem = self.indexes[index]
+        self.title = detailItem.title
     }
 
     override func viewDidLoad() {

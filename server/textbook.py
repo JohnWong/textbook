@@ -39,11 +39,11 @@ def fetchbook(indexurl, filename):
     for node in doc.findChildren("d"):
         titlesplit = node.findChild("t").get_text().split("<br>")
         if name is None:
-            name = titlesplit[0]
+            name = titlesplit[0].replace("义务教育课程标准实验教科书　", "").replace(" ", "").replace("　", " ")
             continue
         if len(titlesplit) == 2:
             pages.append({
-                "title": titlesplit[0].replace("<b>", "").replace("</b>", ""),
+                "title": titlesplit[0],
                 "page": 0,
                 "link": ""
             })
@@ -55,10 +55,12 @@ def fetchbook(indexurl, filename):
         link = node.findChild("l").get_text()
         link = fetchimg(indexurl, link)
 
+        backward = 1 if len(titlesplit) == 1 else 2
         if re.match("\d+", title):
             page = int(title)
         else:
-            page = pages[len(pages) - 1]["page"] + 1 if len(pages) > 0 and pages[len(pages) - 1] > 0 else 0
+            page = pages[len(pages) - backward]["page"] + 1 if len(pages) > 0 and pages[len(pages) - backward]["page"] else 0
+
         pages.append({
             "title": title,
             "link": link,
@@ -69,7 +71,7 @@ def fetchbook(indexurl, filename):
 
     jsonstr = json.dumps({
         "name": name,
-        "index": pages
+        "pages": pages
     })
     with open(filename, "w") as f:
         f.write(jsonstr)

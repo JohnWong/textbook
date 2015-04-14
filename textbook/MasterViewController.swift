@@ -13,6 +13,17 @@ class MasterViewController: UITableViewController {
     var bookItem = BookItem()
     var bookRequest = BookRequest()
     
+    struct StoryBoard {
+         struct Cells {
+            static let cell = "Cell"
+            static let cellBold = "CellBold"
+        }
+        
+         struct Segues {
+            static let showDetail = "showDetail"
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
@@ -34,40 +45,58 @@ class MasterViewController: UITableViewController {
     }
 
     // MARK: - Segues
-
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "showDetail" {
+        if segue.identifier == StoryBoard.Segues.showDetail {
             if let indexPath = self.tableView.indexPathForSelectedRow() {
-                let indexItem = bookItem.sectionItems[indexPath.section].rows[indexPath.row]
-                (segue.destinationViewController as! DetailViewController).detailItem = indexItem
+                let indexItem = bookItem.indexes[indexPath.row]
+                var index = 0
+                for (key, value) in enumerate(bookItem.pages) {
+                    if value.link == indexItem.link {
+                        index = key
+                        break
+                    }
+                }
+                (segue.destinationViewController as! DetailViewController).setIndexes(bookItem.pages, atIndex: index)
             }
         }
     }
 
     // MARK: - Table View
 
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let cell = self.tableView.cellForRowAtIndexPath(indexPath)!
+        if cell.selectionStyle != UITableViewCellSelectionStyle.None {
+            self.performSegueWithIdentifier(StoryBoard.Segues.showDetail, sender: self)
+        }
+    }
+    
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return bookItem.sectionItems.count
+        return 1
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return bookItem.sectionItems[section].rows.count
+        return bookItem.indexes.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
-        let indexItem = bookItem.sectionItems[indexPath.section].rows[indexPath.row]
-        cell.textLabel!.text = indexItem.title
+        let indexItem = bookItem.indexes[indexPath.row]
+        let title = indexItem.title.stringByReplacingOccurrencesOfString("<b>", withString: "").stringByReplacingOccurrencesOfString("</b>", withString: "")
+        var cellIdentifier = StoryBoard.Cells.cell
+        if indexItem.title != title {
+            cellIdentifier = StoryBoard.Cells.cellBold
+        }
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        cell.textLabel!.text = title
         cell.detailTextLabel!.text = indexItem.page == 0 ? "" : "\(indexItem.page)"
+        if indexItem.link.isEmpty {
+            cell.selectionStyle = UITableViewCellSelectionStyle.None
+            cell.accessoryType = UITableViewCellAccessoryType.None
+        } else {
+            cell.selectionStyle = UITableViewCellSelectionStyle.Default
+            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+        }
         return cell
-    }
-    
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return bookItem.sectionItems[section].header
-    }
-
-    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return bookItem.sectionItems[section].header.isEmpty ? 0 : 36
     }
 }
 
