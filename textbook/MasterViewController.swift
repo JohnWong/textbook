@@ -10,18 +10,19 @@ import UIKit
 
 class MasterViewController: UITableViewController {
 
-    var objects: Array<NSDictionary> = [NSDictionary]()
-    var indexRequest = IndexRequest()
-
+    var bookItem = BookItem()
+    var bookRequest = BookRequest()
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        indexRequest.loadWithCompletion { (dict, error) -> Void in
+        bookRequest.loadWithCompletion { (dict, error) -> Void in
             if let dict = dict {
-                self.objects = dict["index"] as! Array<NSDictionary>
+                self.bookItem = BookItem(dict: dict)
+                self.title = self.bookItem.name
                 self.tableView.reloadData()
             }
         }
@@ -36,54 +37,37 @@ class MasterViewController: UITableViewController {
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "showDetail" {
-//            if let indexPath = self.tableView.indexPathForSelectedRow() {
-//                let object = objects[indexPath.row] as! NSDate
-//            (segue.destinationViewController as! DetailViewController).detailItem = object
-//            }
+            if let indexPath = self.tableView.indexPathForSelectedRow() {
+                let indexItem = bookItem.sectionItems[indexPath.section].rows[indexPath.row]
+                (segue.destinationViewController as! DetailViewController).detailItem = indexItem
+            }
         }
     }
 
     // MARK: - Table View
 
     override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return objects.count
+        return bookItem.sectionItems.count
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let object: NSDictionary = objects[section]
-        if let rows: NSArray = object["rows"] as? NSArray {
-            return rows.count
-        }
-        return 0
+        return bookItem.sectionItems[section].rows.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
-
-        let object: NSDictionary = objects[indexPath.section]
-        if let rows: NSArray = object["rows"] as? NSArray {
-            if let item: NSDictionary = rows[indexPath.row] as? NSDictionary {
-                cell.textLabel!.text = item["title"] as? String
-                return cell
-            }
-        }
+        let indexItem = bookItem.sectionItems[indexPath.section].rows[indexPath.row]
+        cell.textLabel!.text = indexItem.title
+        cell.detailTextLabel!.text = indexItem.page == 0 ? "" : "\(indexItem.page)"
         return cell
     }
-
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return bookItem.sectionItems[section].header
     }
 
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            objects.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-        }
+    override func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return bookItem.sectionItems[section].header.isEmpty ? 0 : 36
     }
-
-
 }
 

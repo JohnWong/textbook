@@ -36,59 +36,53 @@ def fetchbook(indexurl, filename):
     name = None
     titles = []
     links = []
+    pages = []
 
     for node in doc.findChildren("d"):
         title = node.findChild("t").get_text()
-        page = node.findChild("l").get_text()
+        link = node.findChild("l").get_text()
         if name is None:
             name = title
             continue
-        link = fetchimg(indexurl, page)
+        link = fetchimg(indexurl, link)
         titles.append(title)
         links.append(link)
-        print(title)
+        if re.match("\d+", title):
+            page = int(title)
+        else:
+            page = pages[len(pages) - 1] + 1 if len(pages) > 0 and pages[len(pages) - 1] > 0 else 0
+        pages.append(page)
+        print("%s, %s" % (title, page))
         pass
 
     data = []
     section = None
     for i in range(len(titles)):
-        title = titles[i].split("<br>")
-        link = links[i]
-        title0 = title[0].replace("<b>", "").replace("</b>", "")
-        prev = links[i-1] if i > 0 else None
-        next = links[i+1] if i < len(links) - 1 else None
-        if len(title) == 1:
-            if re.match("\d+", title[0]):
+        titlesplit = titles[i].split("<br>")
+        title0 = titlesplit[0].replace("<b>", "").replace("</b>", "")
+        title = title0 if len(titlesplit) == 1 else titlesplit[1]
+        item = {
+            "title": title,
+            "link": links[i],
+            "page": pages[i]
+        }
+        if len(titlesplit) == 1:
+            if re.match("\d+", titlesplit[0]):
                 continue
             if section:
-                section["rows"].append({
-                    "title": title0,
-                    "link": link,
-                    "prev": prev,
-                    "next": next
-                })
+                section["rows"].append(item)
                 pass
             else:
                 data.append({
                     "header": "",
-                    "rows": [{
-                        "title": title0,
-                        "link": link,
-                        "prev": prev,
-                        "next": next
-                    }]
+                    "rows": [item]
                 })
                 pass
             pass
         else:
             section = {
                 "header": title0,
-                "rows": [{
-                    "title": title[1],
-                    "link": link,
-                    "prev": prev,
-                    "next": next
-                }]
+                "rows": [item]
             }
             data.append(section)
             pass
@@ -96,7 +90,7 @@ def fetchbook(indexurl, filename):
 
     jsonstr = json.dumps({
         "name": name,
-        "indexs": data})
+        "index": data})
     with open(filename, "w") as f:
         f.write(jsonstr)
     pass

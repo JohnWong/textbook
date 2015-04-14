@@ -16,8 +16,8 @@
 		522ED1861ADAA3400080ABD3 /* textbookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED1851ADAA3400080ABD3 /* textbookTests.swift */; };
 		522ED1901ADAA4E40080ABD3 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED18F1ADAA4E40080ABD3 /* AppConfiguration.swift */; };
 		522ED1921ADAA9940080ABD3 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED1911ADAA9940080ABD3 /* Request.swift */; };
-		522ED1951ADACE4A0080ABD3 /* IndexRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED1941ADACE4A0080ABD3 /* IndexRequest.swift */; };
-		52F428941ADB743C0007389C /* IndexItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F428931ADB743C0007389C /* IndexItem.swift */; };
+		522ED1951ADACE4A0080ABD3 /* BookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED1941ADACE4A0080ABD3 /* BookRequest.swift */; };
+		52F428941ADB743C0007389C /* BookItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F428931ADB743C0007389C /* BookItem.swift */; };
 		5F406AF116A942A16EC7543A /* libPods-textbook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3DB9371057CC284DFCF304 /* libPods-textbook.a */; };
 /* End PBXBuildFile section */
 
@@ -46,8 +46,8 @@
 		522ED18F1ADAA4E40080ABD3 /* AppConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppConfiguration.swift; sourceTree = "<group>"; };
 		522ED1911ADAA9940080ABD3 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		522ED1931ADAA9EE0080ABD3 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
-		522ED1941ADACE4A0080ABD3 /* IndexRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexRequest.swift; sourceTree = "<group>"; };
-		52F428931ADB743C0007389C /* IndexItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndexItem.swift; sourceTree = "<group>"; };
+		522ED1941ADACE4A0080ABD3 /* BookRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookRequest.swift; sourceTree = "<group>"; };
+		52F428931ADB743C0007389C /* BookItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookItem.swift; sourceTree = "<group>"; };
 		F07D4D950EA3A74C5AED3F05 /* Pods-textbook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-textbook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-textbook/Pods-textbook.debug.xcconfig"; sourceTree = "<group>"; };
 		FB605A31703C19160D8150C8 /* Pods-textbook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-textbook.release.xcconfig"; path = "Pods/Target Support Files/Pods-textbook/Pods-textbook.release.xcconfig"; sourceTree = "<group>"; };
 		FC3DB9371057CC284DFCF304 /* libPods-textbook.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-textbook.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,8 +104,8 @@
 				522ED16B1ADAA33F0080ABD3 /* Supporting Files */,
 				522ED18F1ADAA4E40080ABD3 /* AppConfiguration.swift */,
 				522ED1911ADAA9940080ABD3 /* Request.swift */,
-				522ED1941ADACE4A0080ABD3 /* IndexRequest.swift */,
-				52F428931ADB743C0007389C /* IndexItem.swift */,
+				522ED1941ADACE4A0080ABD3 /* BookRequest.swift */,
+				52F428931ADB743C0007389C /* BookItem.swift */,
 			);
 			path = textbook;
 			sourceTree = "<group>";
@@ -289,11 +289,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				522ED1721ADAA33F0080ABD3 /* DetailViewController.swift in Sources */,
-				522ED1951ADACE4A0080ABD3 /* IndexRequest.swift in Sources */,
+				522ED1951ADACE4A0080ABD3 /* BookRequest.swift in Sources */,
 				522ED1921ADAA9940080ABD3 /* Request.swift in Sources */,
 				522ED1701ADAA33F0080ABD3 /* MasterViewController.swift in Sources */,
 				522ED1901ADAA4E40080ABD3 /* AppConfiguration.swift in Sources */,
-				52F428941ADB743C0007389C /* IndexItem.swift in Sources */,
+				52F428941ADB743C0007389C /* BookItem.swift in Sources */,
 				522ED16E1ADAA33F0080ABD3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

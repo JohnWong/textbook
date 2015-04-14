@@ -1,5 +1,5 @@
 //
-//  XMLRequest.swift
+//  BookRequest.swift
 //  textbook
 //
 //  Created by John Wong on 4/13/15.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class IndexRequest: Request {
+class BookRequest: Request {
     
     override func urlPath() -> String {
         return AppConfiguration.Indexes.indexOneFirst
