@@ -11,6 +11,11 @@ import UIKit
 class ImageViewController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var imageWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    var index = 0
+    
     var imagePath: String = "" {
         willSet(newImagePath) {
             setImagePathIfExists(newImagePath)
@@ -24,9 +29,17 @@ class ImageViewController: UIViewController {
     }
     
     func setImagePathIfExists(url: String) {
+        println("\(url)")
+        if let scrollView = scrollView {
+            scrollView.contentOffset = CGPoint(x: 0, y: 0)
+        }
         if let imageView = imageView {
             imageView.setImageWithURL(NSURL(string: url as String), usingActivityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
         }
     }
     
+    override func viewWillLayoutSubviews() {
+        self.imageWidthConstraint.constant = self.view.frame.width
+        super.viewWillLayoutSubviews()
+    }
 }

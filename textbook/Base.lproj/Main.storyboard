@@ -99,7 +99,11 @@
         <!--Page View Controller-->
         <scene sceneID="YRX-89-H7M">
             <objects>
-                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="SJw-Pt-4E4" customClass="PageViewController" customModule="textbook" customModuleProvider="target" sceneMemberID="viewController"/>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="SJw-Pt-4E4" customClass="PageViewController" customModule="textbook" customModuleProvider="target" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="WwR-uZ-Opt" kind="show" id="dmC-0t-stk"/>
+                    </connections>
+                </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NWW-Xc-REP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1348" y="64"/>
@@ -113,25 +117,42 @@
                         <viewControllerLayoutGuide type="bottom" id="1kl-yI-q5M"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="0Tw-1W-4yp">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="906"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2SA-Yt-H4n">
-                                <rect key="frame" x="0.0" y="-153" width="600" height="906"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcL-gH-Q1q">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="906"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2SA-Yt-H4n">
+                                        <rect key="frame" x="0.0" y="0.0" width="640" height="906"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="640" id="P3a-XD-y0E"/>
+                                            <constraint firstAttribute="width" secondItem="2SA-Yt-H4n" secondAttribute="height" multiplier="320:453" id="YtK-Gf-wqb"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="2SA-Yt-H4n" secondAttribute="height" multiplier="120:181" id="qnR-qd-vN0"/>
+                                    <constraint firstAttribute="bottom" secondItem="2SA-Yt-H4n" secondAttribute="bottom" id="3nu-6t-Mhe"/>
+                                    <constraint firstItem="2SA-Yt-H4n" firstAttribute="top" secondItem="YcL-gH-Q1q" secondAttribute="top" id="3py-AO-pKm"/>
+                                    <constraint firstAttribute="trailing" secondItem="2SA-Yt-H4n" secondAttribute="trailing" id="cXX-Q8-bze"/>
+                                    <constraint firstItem="2SA-Yt-H4n" firstAttribute="leading" secondItem="YcL-gH-Q1q" secondAttribute="leading" id="qOF-pA-GO0"/>
                                 </constraints>
-                            </imageView>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="2SA-Yt-H4n" secondAttribute="trailing" id="1G6-kg-jso"/>
-                            <constraint firstItem="2SA-Yt-H4n" firstAttribute="leading" secondItem="0Tw-1W-4yp" secondAttribute="leading" id="T5q-9P-ncb"/>
-                            <constraint firstAttribute="centerY" secondItem="2SA-Yt-H4n" secondAttribute="centerY" id="fCm-MN-Sg6"/>
+                            <constraint firstItem="1kl-yI-q5M" firstAttribute="top" secondItem="YcL-gH-Q1q" secondAttribute="bottom" id="7LJ-If-pcR"/>
+                            <constraint firstItem="YcL-gH-Q1q" firstAttribute="leading" secondItem="0Tw-1W-4yp" secondAttribute="leading" id="BO8-bs-2Ql"/>
+                            <constraint firstAttribute="trailing" secondItem="YcL-gH-Q1q" secondAttribute="trailing" id="N96-be-rfc"/>
+                            <constraint firstItem="YcL-gH-Q1q" firstAttribute="top" secondItem="Mfu-Rx-RPO" secondAttribute="bottom" id="iHe-Bd-Q2F"/>
                         </constraints>
                     </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="970"/>
                     <connections>
                         <outlet property="imageView" destination="2SA-Yt-H4n" id="bCl-6B-dMD"/>
+                        <outlet property="imageWidthConstraint" destination="P3a-XD-y0E" id="BZL-5o-GBh"/>
+                        <outlet property="scrollView" destination="YcL-gH-Q1q" id="HMG-wl-WbG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oq8-FU-JYv" userLabel="First Responder" sceneMemberID="firstResponder"/>

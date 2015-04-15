@@ -49,7 +49,8 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             return nil
         }
         let controller = viewController == tempControllers[0] ? tempControllers[1] : tempControllers[0]
-        let item = pages[--index]
+        controller.index = index - 1
+        let item = pages[controller.index]
         controller.imagePath = item.link
         return controller
     }
@@ -59,16 +60,21 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             return nil
         }
         let controller = viewController == tempControllers[0] ? tempControllers[1] : tempControllers[0]
-        let item = pages[++index]
+        controller.index = index + 1
+        let item = pages[controller.index]
         controller.imagePath = item.link
         return controller
     }
     
     func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [AnyObject]) {
+        
         pageAnimationFinished = false
     }
     
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool) {
+        if let controller = pageViewController.viewControllers[0] as? ImageViewController {
+            index = controller.index
+        }
         configureView()
         pageAnimationFinished = true
     }
