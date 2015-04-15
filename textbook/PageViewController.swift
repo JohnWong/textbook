@@ -22,15 +22,15 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     
     func configureView() {
         // Update the user interface for the detail item.
-        let detailItem = self.pages[index]
-        self.title = detailItem.title
+        let detailItem = pages[index]
+        title = detailItem.title
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.dataSource = self
-        self.delegate = self
-        self.configureView()
+        dataSource = self
+        delegate = self
+        configureView()
         for i in 0...1 {
             let controller: AnyObject! = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("Page")
             if let controller = controller as? ImageViewController {
@@ -38,9 +38,9 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             }
         }
         let imageController = tempControllers[0]
-        imageController.imagePath = self.pages[index].link
+        imageController.imagePath = pages[index].link
 
-        self.setViewControllers(Array<ImageViewController>(arrayLiteral: imageController), direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: { (result: Bool) -> Void in
+        setViewControllers(Array<ImageViewController>(arrayLiteral: imageController), direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: { (result: Bool) -> Void in
             
         })
     }
@@ -49,20 +49,18 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             return nil
         }
         let controller = viewController == tempControllers[0] ? tempControllers[1] : tempControllers[0]
-        let item = self.pages[--index]
+        let item = pages[--index]
         controller.imagePath = item.link
-        configureView()
         return controller
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
-        if !pageAnimationFinished || index == self.pages.count - 1 {
+        if !pageAnimationFinished || index == pages.count - 1 {
             return nil
         }
         let controller = viewController == tempControllers[0] ? tempControllers[1] : tempControllers[0]
-        let item = self.pages[++index]
+        let item = pages[++index]
         controller.imagePath = item.link
-        configureView()
         return controller
     }
     
@@ -71,6 +69,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     }
     
     func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool) {
+        configureView()
         pageAnimationFinished = true
     }
     

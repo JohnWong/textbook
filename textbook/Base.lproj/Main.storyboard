@@ -3,7 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Master-->
@@ -117,15 +117,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2SA-Yt-H4n">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="-153" width="600" height="906"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="2SA-Yt-H4n" secondAttribute="height" multiplier="120:181" id="qnR-qd-vN0"/>
+                                </constraints>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="2SA-Yt-H4n" secondAttribute="trailing" id="1G6-kg-jso"/>
                             <constraint firstItem="2SA-Yt-H4n" firstAttribute="leading" secondItem="0Tw-1W-4yp" secondAttribute="leading" id="T5q-9P-ncb"/>
-                            <constraint firstItem="1kl-yI-q5M" firstAttribute="top" secondItem="2SA-Yt-H4n" secondAttribute="bottom" id="Y9I-dn-MIf"/>
-                            <constraint firstItem="2SA-Yt-H4n" firstAttribute="top" secondItem="0Tw-1W-4yp" secondAttribute="topMargin" id="kiX-uc-zrD"/>
+                            <constraint firstAttribute="centerY" secondItem="2SA-Yt-H4n" secondAttribute="centerY" id="fCm-MN-Sg6"/>
                         </constraints>
                     </view>
                     <connections>

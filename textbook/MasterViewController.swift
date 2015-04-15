@@ -30,7 +30,7 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        bookRequest.loadWithCompletion { (dict, error) -> Void in
+        bookRequest.loadWithCompletion { [unowned self](dict, error) -> Void in
             if let dict = dict {
                 self.bookItem = BookItem(dict: dict)
                 self.title = self.bookItem.name
@@ -48,7 +48,7 @@ class MasterViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == StoryBoard.Segues.showDetail {
-            if let indexPath = self.tableView.indexPathForSelectedRow() {
+            if let indexPath = tableView.indexPathForSelectedRow() {
                 let indexItem = bookItem.indexes[indexPath.row]
                 var index = 0
                 for (key, value) in enumerate(bookItem.pages) {
@@ -65,9 +65,9 @@ class MasterViewController: UITableViewController {
     // MARK: - Table View
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = self.tableView.cellForRowAtIndexPath(indexPath)!
+        let cell = tableView.cellForRowAtIndexPath(indexPath)!
         if cell.selectionStyle != UITableViewCellSelectionStyle.None {
-            self.performSegueWithIdentifier(StoryBoard.Segues.showDetail, sender: self)
+            performSegueWithIdentifier(StoryBoard.Segues.showDetail, sender: self)
         }
     }
     

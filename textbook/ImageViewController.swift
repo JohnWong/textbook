@@ -13,19 +13,19 @@ class ImageViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     var imagePath: String = "" {
         willSet(newImagePath) {
-            self.setImagePathIfExists(newImagePath)
+            setImagePathIfExists(newImagePath)
         }
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.setImagePathIfExists(imagePath)
+        setImagePathIfExists(imagePath)
     }
     
     func setImagePathIfExists(url: String) {
-        if let imageView = self.imageView {
-            self.imageView.setImageWithURL(NSURL(string: url as String), usingActivityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+        if let imageView = imageView {
+            imageView.setImageWithURL(NSURL(string: url as String), usingActivityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
         }
     }
     

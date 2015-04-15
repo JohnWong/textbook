@@ -62,9 +62,10 @@ class BookItem {
                         indexes.append(indexItem)
                     }
                     
-                    var title = indexItem.title.stringByReplacingOccurrencesOfString("<b>", withString: "").stringByReplacingOccurrencesOfString("</b>", withString: "")
-                    pages.append(IndexItem(title: title, link: indexItem.link, page: indexItem.page))
-                    
+                    if !indexItem.link.isEmpty {
+                        var title = indexItem.title.stringByReplacingOccurrencesOfString("<b>", withString: "").stringByReplacingOccurrencesOfString("</b>", withString: "")
+                        pages.append(IndexItem(title: title, link: indexItem.link, page: indexItem.page))
+                    }
                 }
             }
         }
