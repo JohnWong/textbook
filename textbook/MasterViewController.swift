@@ -57,7 +57,7 @@ class MasterViewController: UITableViewController {
                         break
                     }
                 }
-                (segue.destinationViewController as! DetailViewController).setIndexes(bookItem.pages, atIndex: index)
+                (segue.destinationViewController as! PageViewController).setPages(bookItem.pages, atIndex: index)
             }
         }
     }

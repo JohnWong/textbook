@@ -1,10 +1,18 @@
 PODS:
+  - SDWebImage (3.7.2):
+    - SDWebImage/Core (= 3.7.2)
+  - SDWebImage/Core (3.7.2)
   - STHTTPRequest (1.0.2)
+  - UIActivityIndicator-for-SDWebImage (1.2):
+    - SDWebImage (~> 3.7)
 
 DEPENDENCIES:
   - STHTTPRequest
+  - UIActivityIndicator-for-SDWebImage
 
 SPEC CHECKSUMS:
+  SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   STHTTPRequest: f4ca4e3ca31ebd9b54c134aa721ddd1711f1089d
+  UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
 
-COCOAPODS: 0.36.1
+COCOAPODS: 0.35.0

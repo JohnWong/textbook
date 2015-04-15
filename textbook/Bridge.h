@@ -7,3 +7,4 @@
 //
 
 #import "STHTTPRequest.h"
+#import "UIImageView+UIActivityIndicatorForSDWebImage.h"

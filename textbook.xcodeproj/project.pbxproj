@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		522ED16E1ADAA33F0080ABD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED16D1ADAA33F0080ABD3 /* AppDelegate.swift */; };
 		522ED1701ADAA33F0080ABD3 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED16F1ADAA33F0080ABD3 /* MasterViewController.swift */; };
-		522ED1721ADAA33F0080ABD3 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED1711ADAA33F0080ABD3 /* DetailViewController.swift */; };
 		522ED1751ADAA3400080ABD3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 522ED1731ADAA3400080ABD3 /* Main.storyboard */; };
 		522ED1771ADAA3400080ABD3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 522ED1761ADAA3400080ABD3 /* Images.xcassets */; };
 		522ED17A1ADAA3400080ABD3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 522ED1781ADAA3400080ABD3 /* LaunchScreen.xib */; };
@@ -17,6 +16,7 @@
 		522ED1901ADAA4E40080ABD3 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED18F1ADAA4E40080ABD3 /* AppConfiguration.swift */; };
 		522ED1921ADAA9940080ABD3 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED1911ADAA9940080ABD3 /* Request.swift */; };
 		522ED1951ADACE4A0080ABD3 /* BookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED1941ADACE4A0080ABD3 /* BookRequest.swift */; };
+		527DD4C61ADDFF27005C0C64 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527DD4C51ADDFF27005C0C64 /* ImageViewController.swift */; };
 		528703671ADD815E00C5F99E /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528703661ADD815E00C5F99E /* PageViewController.swift */; };
 		52F428941ADB743C0007389C /* BookItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F428931ADB743C0007389C /* BookItem.swift */; };
 		5F406AF116A942A16EC7543A /* libPods-textbook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3DB9371057CC284DFCF304 /* libPods-textbook.a */; };
@@ -37,7 +37,6 @@
 		522ED16C1ADAA33F0080ABD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		522ED16D1ADAA33F0080ABD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		522ED16F1ADAA33F0080ABD3 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
-		522ED1711ADAA33F0080ABD3 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		522ED1741ADAA3400080ABD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		522ED1761ADAA3400080ABD3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		522ED1791ADAA3400080ABD3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -48,6 +47,7 @@
 		522ED1911ADAA9940080ABD3 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		522ED1931ADAA9EE0080ABD3 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		522ED1941ADACE4A0080ABD3 /* BookRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookRequest.swift; sourceTree = "<group>"; };
+		527DD4C51ADDFF27005C0C64 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		528703661ADD815E00C5F99E /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		52F428931ADB743C0007389C /* BookItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookItem.swift; sourceTree = "<group>"; };
 		F07D4D950EA3A74C5AED3F05 /* Pods-textbook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-textbook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-textbook/Pods-textbook.debug.xcconfig"; sourceTree = "<group>"; };
@@ -99,7 +99,6 @@
 			children = (
 				522ED16D1ADAA33F0080ABD3 /* AppDelegate.swift */,
 				522ED16F1ADAA33F0080ABD3 /* MasterViewController.swift */,
-				522ED1711ADAA33F0080ABD3 /* DetailViewController.swift */,
 				522ED1731ADAA3400080ABD3 /* Main.storyboard */,
 				522ED1761ADAA3400080ABD3 /* Images.xcassets */,
 				522ED1781ADAA3400080ABD3 /* LaunchScreen.xib */,
@@ -109,6 +108,7 @@
 				522ED1941ADACE4A0080ABD3 /* BookRequest.swift */,
 				52F428931ADB743C0007389C /* BookItem.swift */,
 				528703661ADD815E00C5F99E /* PageViewController.swift */,
+				527DD4C51ADDFF27005C0C64 /* ImageViewController.swift */,
 			);
 			path = textbook;
 			sourceTree = "<group>";
@@ -291,7 +291,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				522ED1721ADAA33F0080ABD3 /* DetailViewController.swift in Sources */,
+				527DD4C61ADDFF27005C0C64 /* ImageViewController.swift in Sources */,
 				522ED1951ADACE4A0080ABD3 /* BookRequest.swift in Sources */,
 				522ED1921ADAA9940080ABD3 /* Request.swift in Sources */,
 				522ED1701ADAA33F0080ABD3 /* MasterViewController.swift in Sources */,
