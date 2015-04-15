@@ -123,22 +123,10 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="2SA-Yt-H4n" secondAttribute="trailing" id="1G6-kg-jso"/>
-                            <constraint firstItem="2SA-Yt-H4n" firstAttribute="top" secondItem="0Tw-1W-4yp" secondAttribute="topMargin" id="B4O-4V-ODE"/>
                             <constraint firstItem="2SA-Yt-H4n" firstAttribute="leading" secondItem="0Tw-1W-4yp" secondAttribute="leading" id="T5q-9P-ncb"/>
                             <constraint firstItem="1kl-yI-q5M" firstAttribute="top" secondItem="2SA-Yt-H4n" secondAttribute="bottom" id="Y9I-dn-MIf"/>
-                            <constraint firstItem="2SA-Yt-H4n" firstAttribute="top" secondItem="0Tw-1W-4yp" secondAttribute="topMargin" id="hnO-F0-afU"/>
-                            <constraint firstItem="2SA-Yt-H4n" firstAttribute="top" secondItem="0Tw-1W-4yp" secondAttribute="topMargin" id="iBI-5b-lBt"/>
                             <constraint firstItem="2SA-Yt-H4n" firstAttribute="top" secondItem="0Tw-1W-4yp" secondAttribute="topMargin" id="kiX-uc-zrD"/>
-                            <constraint firstItem="2SA-Yt-H4n" firstAttribute="top" secondItem="Mfu-Rx-RPO" secondAttribute="bottom" id="xMG-EG-Zj3"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="B4O-4V-ODE"/>
-                                <exclude reference="hnO-F0-afU"/>
-                                <exclude reference="iBI-5b-lBt"/>
-                                <exclude reference="xMG-EG-Zj3"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
                         <outlet property="imageView" destination="2SA-Yt-H4n" id="bCl-6B-dMD"/>
