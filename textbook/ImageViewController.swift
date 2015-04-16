@@ -22,7 +22,6 @@ class ImageViewController: UIViewController {
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setImagePathIfExists(imagePath)
@@ -41,5 +40,15 @@ class ImageViewController: UIViewController {
     override func viewWillLayoutSubviews() {
         self.imageWidthConstraint.constant = self.view.frame.width
         super.viewWillLayoutSubviews()
+    }
+    
+    @IBAction func showDetail(sender: UITapGestureRecognizer) {
+        let controller: AnyObject! = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("ImageDetail")
+        if let controller = controller as? UIViewController {
+            let window: UIWindow? = UIApplication.sharedApplication().delegate?.window
+            if let window = window {
+                window.addSubview(controller.view)
+            }
+        }
     }
 }

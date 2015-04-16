@@ -1,4 +1,5 @@
 PODS:
+  - Reveal-iOS-SDK (1.0.6)
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
   - SDWebImage/Core (3.7.2)
@@ -7,10 +8,12 @@ PODS:
     - SDWebImage (~> 3.7)
 
 DEPENDENCIES:
+  - Reveal-iOS-SDK (= 1.0.6)
   - STHTTPRequest
   - UIActivityIndicator-for-SDWebImage
 
 SPEC CHECKSUMS:
+  Reveal-iOS-SDK: 5c06829ab290f1314d15c0f66aaa572fd2342c81
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   STHTTPRequest: f4ca4e3ca31ebd9b54c134aa721ddd1711f1089d
   UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c

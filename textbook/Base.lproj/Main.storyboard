@@ -101,7 +101,7 @@
             <objects>
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="pageCurl" navigationOrientation="horizontal" spineLocation="min" id="SJw-Pt-4E4" customClass="PageViewController" customModule="textbook" customModuleProvider="target" sceneMemberID="viewController">
                     <connections>
-                        <segue destination="WwR-uZ-Opt" kind="show" id="dmC-0t-stk"/>
+                        <segue destination="WwR-uZ-Opt" kind="show" identifier="none" id="dmC-0t-stk"/>
                     </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NWW-Xc-REP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -125,21 +125,27 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2SA-Yt-H4n">
                                         <rect key="frame" x="0.0" y="0.0" width="640" height="906"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="640" id="P3a-XD-y0E"/>
                                             <constraint firstAttribute="width" secondItem="2SA-Yt-H4n" secondAttribute="height" multiplier="320:453" id="YtK-Gf-wqb"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="2SA-Yt-H4n" secondAttribute="bottom" id="3nu-6t-Mhe"/>
                                     <constraint firstItem="2SA-Yt-H4n" firstAttribute="top" secondItem="YcL-gH-Q1q" secondAttribute="top" id="3py-AO-pKm"/>
                                     <constraint firstAttribute="trailing" secondItem="2SA-Yt-H4n" secondAttribute="trailing" id="cXX-Q8-bze"/>
                                     <constraint firstItem="2SA-Yt-H4n" firstAttribute="leading" secondItem="YcL-gH-Q1q" secondAttribute="leading" id="qOF-pA-GO0"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="urh-q8-Jxb" appends="YES" id="syH-Uj-EtQ"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstItem="1kl-yI-q5M" firstAttribute="top" secondItem="YcL-gH-Q1q" secondAttribute="bottom" id="7LJ-If-pcR"/>
                             <constraint firstItem="YcL-gH-Q1q" firstAttribute="leading" secondItem="0Tw-1W-4yp" secondAttribute="leading" id="BO8-bs-2Ql"/>
@@ -156,8 +162,48 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oq8-FU-JYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="urh-q8-Jxb">
+                    <connections>
+                        <action selector="showDetail:" destination="WwR-uZ-Opt" id="ZhA-lE-VxU"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2072" y="64"/>
+        </scene>
+        <!--Detail View Controller-->
+        <scene sceneID="oyw-iZ-wL2">
+            <objects>
+                <viewController storyboardIdentifier="ImageDetail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="t6j-32-Bqh" customClass="DetailViewController" customModule="textbook" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="fct-lW-OfC"/>
+                        <viewControllerLayoutGuide type="bottom" id="jds-Xa-cl1"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Zwo-B2-Ezd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.5" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nim-kf-0c6">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="89Q-Fv-AWG" appends="YES" id="k2k-nL-uLZ"/>
+                                </connections>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="scrollView" destination="Nim-kf-0c6" id="2Fc-gr-YmZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cbt-UW-Baz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="89Q-Fv-AWG">
+                    <connections>
+                        <action selector="didTap:" destination="t6j-32-Bqh" id="f0N-fk-NBp"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="2820" y="-142"/>
         </scene>
     </scenes>
 </document>
