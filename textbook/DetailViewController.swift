@@ -12,7 +12,7 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var imageWidthConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageWidthConstraint: NSLayoutConstraint!    
     
     var imagePath: String = "" {
         willSet(newImagePath) {
@@ -25,6 +25,8 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewDidLayoutSubviews() {
         self.imageWidthConstraint.constant = self.view.frame.size.width
+        scrollView.zoomScale = 1.0
+        scrollView.minimumZoomScale = min(1, self.view.frame.size.height / (imageView.frame.size.height / imageView.frame.size.width * self.view.frame.size.width))
         super.viewDidLayoutSubviews()
     }
     
@@ -50,5 +52,17 @@ class DetailViewController: UIViewController, UIScrollViewDelegate {
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return imageView
+    }
+    
+    func scrollViewDidZoom(scrollView: UIScrollView) {
+        
+        adjustViewCenter()
+    }
+    
+    func adjustViewCenter() {
+        var offsetX = (scrollView.bounds.size.width - scrollView.contentSize.width ) / 2
+        var offsetY = (scrollView.bounds.size.height - scrollView.contentSize.height) / 2
+        imageView.center = scrollView.center
+        println("\(scrollView.contentSize.width/2 + offsetX), \(offsetY)")
     }
 }

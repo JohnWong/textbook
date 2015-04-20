@@ -186,18 +186,18 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="906"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qUT-Rl-KWT">
-                                        <rect key="frame" x="0.0" y="0.0" width="640" height="906"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="906"/>
                                         <gestureRecognizers/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="640" id="5mI-w3-DVo"/>
-                                            <constraint firstAttribute="width" secondItem="qUT-Rl-KWT" secondAttribute="height" multiplier="320:453" id="MWa-hg-iiC"/>
+                                            <constraint firstAttribute="width" constant="600" id="5mI-w3-DVo"/>
+                                            <constraint firstAttribute="width" secondItem="qUT-Rl-KWT" secondAttribute="height" multiplier="300:453" id="MWa-hg-iiC"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="qUT-Rl-KWT" secondAttribute="bottom" id="DBo-Yk-u6Y"/>
-                                    <constraint firstAttribute="trailing" secondItem="qUT-Rl-KWT" secondAttribute="trailing" constant="-40" id="obf-lY-faA"/>
+                                    <constraint firstAttribute="trailing" secondItem="qUT-Rl-KWT" secondAttribute="trailing" id="obf-lY-faA"/>
                                     <constraint firstItem="qUT-Rl-KWT" firstAttribute="top" secondItem="roV-ET-BEo" secondAttribute="top" id="uvE-1K-id2"/>
                                     <constraint firstItem="qUT-Rl-KWT" firstAttribute="leading" secondItem="roV-ET-BEo" secondAttribute="leading" id="v2S-fp-kNI"/>
                                 </constraints>
@@ -223,6 +223,8 @@
                     <size key="freeformSize" width="600" height="906"/>
                     <connections>
                         <outlet property="doubleTapGesture" destination="MZY-ba-od1" id="krE-7l-Xkw"/>
+                        <outlet property="imageLeftConstraint" destination="9Hz-NZ-qGy" id="1Jh-vH-ehn"/>
+                        <outlet property="imageRightConstraint" destination="A30-6G-DPr" id="36R-KE-SK7"/>
                         <outlet property="imageView" destination="qUT-Rl-KWT" id="rAQ-b2-IOi"/>
                         <outlet property="imageWidthConstraint" destination="5mI-w3-DVo" id="TFd-06-qzQ"/>
                         <outlet property="scrollView" destination="roV-ET-BEo" id="Abb-5m-n9z"/>
