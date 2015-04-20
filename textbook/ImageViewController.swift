@@ -42,13 +42,10 @@ class ImageViewController: UIViewController {
         super.viewWillLayoutSubviews()
     }
     
-    @IBAction func showDetail(sender: UITapGestureRecognizer) {
-        let controller: AnyObject! = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("ImageDetail")
-        if let controller = controller as? UIViewController {
-            let window: UIWindow? = UIApplication.sharedApplication().delegate?.window
-            if let window = window {
-                window.addSubview(controller.view)
-            }
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        let controller: AnyObject! = segue.destinationViewController;
+        if let controller = controller as? DetailViewController {
+            controller.imagePath = imagePath
         }
     }
 }
