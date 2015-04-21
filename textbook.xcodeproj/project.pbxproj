@@ -18,6 +18,7 @@
 		522ED1951ADACE4A0080ABD3 /* BookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED1941ADACE4A0080ABD3 /* BookRequest.swift */; };
 		528703671ADD815E00C5F99E /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528703661ADD815E00C5F99E /* PageViewController.swift */; };
 		5294FCBF1AE5EB99007E913D /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5294FCBE1AE5EB99007E913D /* ImageViewController.swift */; };
+		5294FCC11AE5F780007E913D /* RequestCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5294FCC01AE5F780007E913D /* RequestCache.swift */; };
 		52F428941ADB743C0007389C /* BookItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F428931ADB743C0007389C /* BookItem.swift */; };
 		5F406AF116A942A16EC7543A /* libPods-textbook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3DB9371057CC284DFCF304 /* libPods-textbook.a */; };
 /* End PBXBuildFile section */
@@ -49,6 +50,7 @@
 		522ED1941ADACE4A0080ABD3 /* BookRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookRequest.swift; sourceTree = "<group>"; };
 		528703661ADD815E00C5F99E /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		5294FCBE1AE5EB99007E913D /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
+		5294FCC01AE5F780007E913D /* RequestCache.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestCache.swift; sourceTree = "<group>"; };
 		52F428931ADB743C0007389C /* BookItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookItem.swift; sourceTree = "<group>"; };
 		F07D4D950EA3A74C5AED3F05 /* Pods-textbook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-textbook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-textbook/Pods-textbook.debug.xcconfig"; sourceTree = "<group>"; };
 		FB605A31703C19160D8150C8 /* Pods-textbook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-textbook.release.xcconfig"; path = "Pods/Target Support Files/Pods-textbook/Pods-textbook.release.xcconfig"; sourceTree = "<group>"; };
@@ -109,6 +111,7 @@
 				522ED1941ADACE4A0080ABD3 /* BookRequest.swift */,
 				52F428931ADB743C0007389C /* BookItem.swift */,
 				528703661ADD815E00C5F99E /* PageViewController.swift */,
+				5294FCC01AE5F780007E913D /* RequestCache.swift */,
 			);
 			path = textbook;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 				522ED1951ADACE4A0080ABD3 /* BookRequest.swift in Sources */,
 				5294FCBF1AE5EB99007E913D /* ImageViewController.swift in Sources */,
 				522ED1921ADAA9940080ABD3 /* Request.swift in Sources */,
+				5294FCC11AE5F780007E913D /* RequestCache.swift in Sources */,
 				522ED1701ADAA33F0080ABD3 /* MasterViewController.swift in Sources */,
 				522ED1901ADAA4E40080ABD3 /* AppConfiguration.swift in Sources */,
 				52F428941ADB743C0007389C /* BookItem.swift in Sources */,

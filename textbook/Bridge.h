@@ -8,3 +8,4 @@
 
 #import "STHTTPRequest.h"
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
+#import <CommonCrypto/CommonCrypto.h>

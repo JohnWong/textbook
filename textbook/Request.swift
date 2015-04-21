@@ -25,22 +25,28 @@ class Request {
             completion(dict: nil, error: NSError(domain: "没有URL", code: 1, userInfo: nil));
             return;
         }
-        NSLog("JWRequest: load \(self.urlPath())")
-        self.request?.cancel()
-        self.request = STHTTPRequest(URLString: self.urlPath())
-        self.request?.setValue(self.encoding(), forKey: "responseStringEncodingName")
-        self.request?.completionBlock = {
-            (headers: Dictionary!, body: String!) in
-            NSLog("JWRequest: completion \(headers as NSDictionary) \(body)")
-            self.parse(body, withCompletion: completion)
-        }
-        self.request?.errorBlock = { (error) -> Void in
-            if error.code == 1 {
-                return
+        let str = RequestCache.getCachedResponseForPath(self.urlPath())
+        if let str = str {
+            self.parse(str, withCompletion: completion)
+        } else {
+            NSLog("JWRequest: load \(self.urlPath())")
+            self.request?.cancel()
+            self.request = STHTTPRequest(URLString: self.urlPath())
+            self.request?.setValue(self.encoding(), forKey: "responseStringEncodingName")
+            self.request?.completionBlock = {
+                (headers: Dictionary!, body: String!) in
+                NSLog("JWRequest: completion \(headers as NSDictionary) \(body)")
+                RequestCache.cacheResponse(body, forPath: self.urlPath())
+                self.parse(body, withCompletion: completion)
             }
-            completion(dict: nil, error: error)
+            self.request?.errorBlock = { (error) -> Void in
+                if error.code == 1 {
+                    return
+                }
+                completion(dict: nil, error: error)
+            }
+            self.request?.startAsynchronous()
         }
-        self.request?.startAsynchronous()
     }
     
     func parse(body: String, withCompletion completion:(dict: NSDictionary?, error: NSError?) -> Void) {
