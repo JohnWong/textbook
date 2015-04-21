@@ -1,6 +1,11 @@
 fs = require('fs');
-var data = fs.readFileSync("index1s.json","utf-8");
+var filelist = fs.readdirSync("./");
+var data = {};
+for (var i=0; i<filelist.length; i++) {
+	var file = filelist[i];
+	if (file.match(/.*\.json/)) {
+		data["[ALL]/" + file] = fs.readFileSync(file, "utf-8");
+	}
+}
 
-module.exports = {
-  "[ALL]/index1s.json": data
-};
+module.exports = data;

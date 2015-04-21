@@ -4,6 +4,7 @@ import re
 from bs4 import BeautifulSoup
 import json
 import sys
+import os
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
@@ -27,12 +28,14 @@ def fetchimg(indexurl, pageurl):
 def requesturl(url):
     request = urllib2.Request(url)
     response = urllib2.urlopen(request)
-    result = response.read()#.decode("gbk")
+    result = response.read()  # .decode("gbk")
     return BeautifulSoup(result)
 
 
 def fetchbook(indexurl, filename):
     print("Book: " + indexurl)
+    if os.path.isfile("/etc/passwd"):
+        return
     doc = requesturl(indexurl).recs.documents
     name = None
     pages = []
@@ -57,7 +60,8 @@ def fetchbook(indexurl, filename):
         link = fetchimg(indexurl, link)
 
         backward = 1 if len(titlesplit) == 1 else 2
-        if re.match("\d+", title):
+        print(title)
+        if re.match("^\d+$", title):
             page = int(title)
         else:
             page = pages[len(pages) - backward]["page"] + 1 if len(pages) > 0 and pages[len(pages) - backward]["page"] else 0
@@ -79,7 +83,7 @@ def fetchbook(indexurl, filename):
     pass
 
 
-def fetchsubject(url):
+def fetchsubject(url, title):
     print("Subject: " + url)
     doc = requesturl(url)
     headers = []
@@ -90,24 +94,24 @@ def fetchsubject(url):
         kb = doc.find("a", text=keyword)
         if kb:
             headers.append("电子课本")
-            listurls.append(url + kb.get("href")[2:])
+            listurls.append(kb.get("href")[2:])
         pass
 
     for i in range(len(listurls)):
-        doc = requesturl(listurls[i])
+        listurl = url + listurls[i]
+        doc = requesturl(listurl)
         rows = []
         for node in doc.find("table").find_all("td"):
             span = node.find("span")
             if not span:
                 continue
             title = span.find("a").get_text()
-            href = span.find("a").get("href")[2:]
-            link = url + href + "index_2152.xml"
-            img = url + node.find("img").get("src")[2:]
-            # fetch book josn
+            href = listurl + span.find("a").get("href")[2:]
+            link = href + "index_2152.xml"
+            img = listurl + node.find("img").get("src")[2:]
+            # fetch book json
             prefix = "www.pep.com.cn/"
-            filename = re.search(prefix + ".*", url + href).group()[len(prefix):-1].replace("/", "-")
-            print(filename)
+            filename = re.search(prefix + ".*", href).group()[len(prefix):-1].replace("/", "-") + ".json"
             fetchbook(link, filename)
 
             rows.append({
@@ -117,7 +121,7 @@ def fetchsubject(url):
             })
 
         sections.append({
-            "header": headers[i],
+            "header": title + headers[i],
             "rows": rows
         })
         pass
@@ -137,7 +141,8 @@ def fetchindex(filename):
         subjects = []
         for subject in node.find_all("a"):
             link = url + subject.get("href")[2:]
-            subjects.append(fetchsubject(link))
+            title = subject.get_text()
+            subjects.append(fetchsubject(link, title))
             pass
         cates.append({
             "header": catname,

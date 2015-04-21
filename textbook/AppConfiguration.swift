@@ -9,10 +9,10 @@
 import Foundation
 
 public class AppConfiguration {
-    public static let host = "http://localhost:7000"
-    
-    public struct Indexes {
-        public static let indexOneFirst = host + "/index1s.json"
+    public struct URLs {
+        public static let host = "http://localhost:7000"
+        public static let index = host + "/index.json"
+        public static let demo = host + "/index1s.json"
     }
     
 }

@@ -11,7 +11,7 @@ import Foundation
 class BookRequest: Request {
     
     override func urlPath() -> String {
-        return AppConfiguration.Indexes.indexOneFirst
+        return AppConfiguration.URLs.demo
     }
     
     override func parse(body: String, withCompletion completion: (dict: NSDictionary?, error: NSError?) -> Void) {
