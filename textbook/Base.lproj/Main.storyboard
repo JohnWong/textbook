@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Master-->
@@ -123,12 +122,12 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" minimumZoomScale="0.5" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="YcL-gH-Q1q">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="906"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2SA-Yt-H4n">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2SA-Yt-H4n">
                                         <rect key="frame" x="0.0" y="0.0" width="640" height="906"/>
                                         <gestureRecognizers/>
                                         <constraints>
+                                            <constraint firstAttribute="height" constant="906" id="IK3-QM-kaJ"/>
                                             <constraint firstAttribute="width" constant="640" id="P3a-XD-y0E"/>
-                                            <constraint firstAttribute="width" secondItem="2SA-Yt-H4n" secondAttribute="height" multiplier="320:453" id="YtK-Gf-wqb"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
@@ -149,101 +148,19 @@
                             <constraint firstAttribute="trailing" secondItem="YcL-gH-Q1q" secondAttribute="trailing" id="N96-be-rfc"/>
                             <constraint firstItem="YcL-gH-Q1q" firstAttribute="top" secondItem="Mfu-Rx-RPO" secondAttribute="bottom" id="iHe-Bd-Q2F"/>
                         </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="guz-o4-PDd" appends="YES" id="MwU-ok-UaD"/>
-                        </connections>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="600" height="970"/>
                     <connections>
+                        <outlet property="imageHeightConstraint" destination="IK3-QM-kaJ" id="LA7-an-vnt"/>
                         <outlet property="imageView" destination="2SA-Yt-H4n" id="bCl-6B-dMD"/>
                         <outlet property="imageWidthConstraint" destination="P3a-XD-y0E" id="BZL-5o-GBh"/>
                         <outlet property="scrollView" destination="YcL-gH-Q1q" id="HMG-wl-WbG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oq8-FU-JYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer id="guz-o4-PDd">
-                    <connections>
-                        <segue destination="5wy-pw-1yO" kind="presentation" id="wH5-8K-1yC"/>
-                    </connections>
-                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="2072" y="64"/>
-        </scene>
-        <!--Detail View Controller-->
-        <scene sceneID="5Yw-hZ-F9W">
-            <objects>
-                <viewController storyboardIdentifier="Detail" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5wy-pw-1yO" customClass="DetailViewController" customModule="textbook" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="hk5-p2-u8H"/>
-                        <viewControllerLayoutGuide type="bottom" id="jCJ-8G-2Ov"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="0u9-B2-nSN">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="906"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" minimumZoomScale="0.5" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="roV-ET-BEo">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="906"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qUT-Rl-KWT">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="906"/>
-                                        <gestureRecognizers/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="600" id="5mI-w3-DVo"/>
-                                            <constraint firstAttribute="width" secondItem="qUT-Rl-KWT" secondAttribute="height" multiplier="300:453" id="MWa-hg-iiC"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
-                                <gestureRecognizers/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="qUT-Rl-KWT" secondAttribute="bottom" id="DBo-Yk-u6Y"/>
-                                    <constraint firstAttribute="trailing" secondItem="qUT-Rl-KWT" secondAttribute="trailing" id="obf-lY-faA"/>
-                                    <constraint firstItem="qUT-Rl-KWT" firstAttribute="top" secondItem="roV-ET-BEo" secondAttribute="top" id="uvE-1K-id2"/>
-                                    <constraint firstItem="qUT-Rl-KWT" firstAttribute="leading" secondItem="roV-ET-BEo" secondAttribute="leading" id="v2S-fp-kNI"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="delegate" destination="5wy-pw-1yO" id="MpU-bM-15M"/>
-                                </connections>
-                            </scrollView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <gestureRecognizers/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="roV-ET-BEo" secondAttribute="trailing" id="9Hz-NZ-qGy"/>
-                            <constraint firstItem="roV-ET-BEo" firstAttribute="leading" secondItem="0u9-B2-nSN" secondAttribute="leading" id="A30-6G-DPr"/>
-                            <constraint firstItem="roV-ET-BEo" firstAttribute="top" secondItem="0u9-B2-nSN" secondAttribute="top" id="Y35-aE-bWR"/>
-                            <constraint firstItem="roV-ET-BEo" firstAttribute="bottom" secondItem="jCJ-8G-2Ov" secondAttribute="top" id="nA2-0Y-eGd"/>
-                        </constraints>
-                        <connections>
-                            <outletCollection property="gestureRecognizers" destination="x4Q-rM-YbB" appends="YES" id="nhD-qI-mya"/>
-                            <outletCollection property="gestureRecognizers" destination="MZY-ba-od1" appends="YES" id="RJd-zk-0Kn"/>
-                        </connections>
-                    </view>
-                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-                    <size key="freeformSize" width="600" height="906"/>
-                    <connections>
-                        <outlet property="doubleTapGesture" destination="MZY-ba-od1" id="krE-7l-Xkw"/>
-                        <outlet property="imageLeftConstraint" destination="9Hz-NZ-qGy" id="1Jh-vH-ehn"/>
-                        <outlet property="imageRightConstraint" destination="A30-6G-DPr" id="36R-KE-SK7"/>
-                        <outlet property="imageView" destination="qUT-Rl-KWT" id="rAQ-b2-IOi"/>
-                        <outlet property="imageWidthConstraint" destination="5mI-w3-DVo" id="TFd-06-qzQ"/>
-                        <outlet property="scrollView" destination="roV-ET-BEo" id="Abb-5m-n9z"/>
-                        <outlet property="singleTapGesture" destination="x4Q-rM-YbB" id="VOV-KV-qdi"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FP7-vu-9OM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <tapGestureRecognizer numberOfTapsRequired="2" id="MZY-ba-od1">
-                    <connections>
-                        <action selector="didDoubleTap:" destination="5wy-pw-1yO" id="eeZ-lf-XRO"/>
-                    </connections>
-                </tapGestureRecognizer>
-                <tapGestureRecognizer id="x4Q-rM-YbB">
-                    <connections>
-                        <action selector="didTap:" destination="5wy-pw-1yO" id="T4t-wo-88X"/>
-                    </connections>
-                </tapGestureRecognizer>
-            </objects>
-            <point key="canvasLocation" x="2780" y="64"/>
         </scene>
     </scenes>
 </document>

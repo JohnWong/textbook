@@ -16,9 +16,8 @@
 		522ED1901ADAA4E40080ABD3 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED18F1ADAA4E40080ABD3 /* AppConfiguration.swift */; };
 		522ED1921ADAA9940080ABD3 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED1911ADAA9940080ABD3 /* Request.swift */; };
 		522ED1951ADACE4A0080ABD3 /* BookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED1941ADACE4A0080ABD3 /* BookRequest.swift */; };
-		527DD4C61ADDFF27005C0C64 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527DD4C51ADDFF27005C0C64 /* ImageViewController.swift */; };
 		528703671ADD815E00C5F99E /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528703661ADD815E00C5F99E /* PageViewController.swift */; };
-		52A9AFD31ADFB1280053E57D /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52A9AFD21ADFB1280053E57D /* DetailViewController.swift */; };
+		5294FCBF1AE5EB99007E913D /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5294FCBE1AE5EB99007E913D /* ImageViewController.swift */; };
 		52F428941ADB743C0007389C /* BookItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F428931ADB743C0007389C /* BookItem.swift */; };
 		5F406AF116A942A16EC7543A /* libPods-textbook.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FC3DB9371057CC284DFCF304 /* libPods-textbook.a */; };
 /* End PBXBuildFile section */
@@ -48,9 +47,8 @@
 		522ED1911ADAA9940080ABD3 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		522ED1931ADAA9EE0080ABD3 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		522ED1941ADACE4A0080ABD3 /* BookRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookRequest.swift; sourceTree = "<group>"; };
-		527DD4C51ADDFF27005C0C64 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		528703661ADD815E00C5F99E /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
-		52A9AFD21ADFB1280053E57D /* DetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		5294FCBE1AE5EB99007E913D /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		52F428931ADB743C0007389C /* BookItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookItem.swift; sourceTree = "<group>"; };
 		F07D4D950EA3A74C5AED3F05 /* Pods-textbook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-textbook.debug.xcconfig"; path = "Pods/Target Support Files/Pods-textbook/Pods-textbook.debug.xcconfig"; sourceTree = "<group>"; };
 		FB605A31703C19160D8150C8 /* Pods-textbook.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-textbook.release.xcconfig"; path = "Pods/Target Support Files/Pods-textbook/Pods-textbook.release.xcconfig"; sourceTree = "<group>"; };
@@ -99,6 +97,7 @@
 		522ED16A1ADAA33F0080ABD3 /* textbook */ = {
 			isa = PBXGroup;
 			children = (
+				5294FCBE1AE5EB99007E913D /* ImageViewController.swift */,
 				522ED16D1ADAA33F0080ABD3 /* AppDelegate.swift */,
 				522ED16F1ADAA33F0080ABD3 /* MasterViewController.swift */,
 				522ED1731ADAA3400080ABD3 /* Main.storyboard */,
@@ -110,8 +109,6 @@
 				522ED1941ADACE4A0080ABD3 /* BookRequest.swift */,
 				52F428931ADB743C0007389C /* BookItem.swift */,
 				528703661ADD815E00C5F99E /* PageViewController.swift */,
-				527DD4C51ADDFF27005C0C64 /* ImageViewController.swift */,
-				52A9AFD21ADFB1280053E57D /* DetailViewController.swift */,
 			);
 			path = textbook;
 			sourceTree = "<group>";
@@ -294,9 +291,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				52A9AFD31ADFB1280053E57D /* DetailViewController.swift in Sources */,
-				527DD4C61ADDFF27005C0C64 /* ImageViewController.swift in Sources */,
 				522ED1951ADACE4A0080ABD3 /* BookRequest.swift in Sources */,
+				5294FCBF1AE5EB99007E913D /* ImageViewController.swift in Sources */,
 				522ED1921ADAA9940080ABD3 /* Request.swift in Sources */,
 				522ED1701ADAA33F0080ABD3 /* MasterViewController.swift in Sources */,
 				522ED1901ADAA4E40080ABD3 /* AppConfiguration.swift in Sources */,
@@ -430,6 +426,7 @@
 			baseConfigurationReference = F07D4D950EA3A74C5AED3F05 /* Pods-textbook.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = textbook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -443,6 +440,7 @@
 			baseConfigurationReference = FB605A31703C19160D8150C8 /* Pods-textbook.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				INFOPLIST_FILE = textbook/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
