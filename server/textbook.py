@@ -28,7 +28,7 @@ def fetchimg(indexurl, pageurl):
 def requesturl(url):
     request = urllib2.Request(url)
     response = urllib2.urlopen(request)
-    result = response.read()  # .decode("gbk")
+    result = response.read().decode("gb18030")
     return BeautifulSoup(result)
 
 
@@ -93,8 +93,13 @@ def fetchsubject(url, title):
     for keyword in ["电子课本", "简谱课本", "线谱课本"]:
         kb = doc.find("a", text=keyword)
         if kb:
-            headers.append("电子课本")
+            headers.append(keyword)
             listurls.append(kb.get("href")[2:])
+            pass
+        pass
+
+    if len(headers) == 0:
+        print("Not found: %s" % url)
         pass
 
     for i in range(len(listurls)):
@@ -105,23 +110,23 @@ def fetchsubject(url, title):
             span = node.find("span")
             if not span:
                 continue
-            title = span.find("a").get_text()
+            booktitle = span.find("a").get_text()
             href = listurl + span.find("a").get("href")[2:]
             link = href + "index_2152.xml"
-            img = listurl + node.find("img").get("src")[2:]
+            img = listurl + node.find("img").get("src")[2:] if node.find("img") else ""
             # fetch book json
             prefix = "www.pep.com.cn/"
             filename = re.search(prefix + ".*", href).group()[len(prefix):-1].replace("/", "-") + ".json"
             fetchbook(link, filename)
 
             rows.append({
-                "title": title,
+                "title": booktitle,
                 "link": filename,
                 "img": img
             })
 
         sections.append({
-            "header": title + headers[i],
+            "header": title + headers[i] if headers[i] != "电子课本" else title,
             "rows": rows
         })
         pass
@@ -142,11 +147,12 @@ def fetchindex(filename):
         for subject in node.find_all("a"):
             link = url + subject.get("href")[2:]
             title = subject.get_text()
-            subjects.append(fetchsubject(link, title))
+            for sub in fetchsubject(link, title):
+                subjects.append(sub)
             pass
         cates.append({
-            "header": catname,
-            "rows": subjects
+            "name": catname,
+            "items": subjects
         })
         pass
 

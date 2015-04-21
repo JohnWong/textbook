@@ -49,6 +49,22 @@ class RequestCache: NSObject {
         return str as? String
     }
     
+    class func clearCachedResponse() {
+        var fileManager = NSFileManager.defaultManager()
+        var cacheList = fileManager.subpathsAtPath(cachePath)
+        if let cacheList = cacheList {
+            for cache in cacheList {
+                if let cache = cache as? String {
+                    var error: NSError?
+                    fileManager.removeItemAtPath(self.cachePath.stringByAppendingPathComponent(cache), error: &error)
+                    if let error = error {
+                        println("clear failure: \(error.localizedDescription) \(cache)")
+                    }
+                }
+            }
+        }
+    }
+    
     class func cachedFileNameForKey(key: String) -> String {
         let str = key.cStringUsingEncoding(NSUTF8StringEncoding)
         let strLen = CUnsignedInt(key.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))

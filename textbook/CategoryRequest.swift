@@ -1,5 +1,5 @@
 //
-//  HomeRequest.swift
+//  CategoryRequest.swift
 //  textbook
 //
 //  Created by John Wong on 4/21/15.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HomeRequest: Request {
+class CategoryRequest: Request {
     override func urlPath() -> String {
         return AppConfiguration.URLs.index
     }

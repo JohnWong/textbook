@@ -10,8 +10,12 @@ import UIKit
 
 class MasterViewController: UITableViewController {
 
-    var bookItem = BookItem()
     var bookRequest = BookRequest()
+    var bookItem = BookItem()
+    
+    @IBAction func clearCache(sender: UIButton) {
+        RequestCache.clearCachedResponse()
+    }
     
     struct StoryBoard {
          struct Cells {
@@ -30,6 +34,8 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+
         bookRequest.loadWithCompletion { [unowned self](dict, error) -> Void in
             if let dict = dict {
                 self.bookItem = BookItem(dict: dict)

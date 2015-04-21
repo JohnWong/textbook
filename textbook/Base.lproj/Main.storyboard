@@ -13,21 +13,22 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="pGg-6v-bdr" kind="relationship" relationship="rootViewController" id="RxB-wf-QIq"/>
+                        <segue destination="pGg-6v-bdr" kind="relationship" relationship="rootViewController" id="V16-IH-yq9"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eq9-QA-ai8" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-779" y="58"/>
+            <point key="canvasLocation" x="-111" y="64"/>
         </scene>
-        <!--Collection View Controller-->
+        <!--Pick View Controller-->
         <scene sceneID="1HY-9d-sUS">
             <objects>
-                <collectionViewController id="WeT-K7-fIp" sceneMemberID="viewController">
+                <collectionViewController id="WeT-K7-fIp" customClass="PickViewController" customModule="textbook" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="i7d-SM-iPe">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="avj-RT-KC3">
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="S3f-mH-xN7">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -49,10 +50,23 @@
                             <outlet property="delegate" destination="WeT-K7-fIp" id="iDu-ra-Qdn"/>
                         </connections>
                     </collectionView>
+                    <navigationItem key="navigationItem" id="7Po-YE-4cz">
+                        <nil key="title"/>
+                        <segmentedControl key="titleView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="WVH-Cp-oJe">
+                            <rect key="frame" x="167" y="7" width="267" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <segments>
+                                <segment title="小学"/>
+                                <segment title="初中"/>
+                                <segment title="高中"/>
+                                <segment title="相关教育"/>
+                            </segments>
+                        </segmentedControl>
+                    </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bKY-74-iUz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-88" y="64"/>
+            <point key="canvasLocation" x="1348" y="475"/>
         </scene>
         <!--Master-->
         <scene sceneID="VgW-fR-Quf">
@@ -119,7 +133,30 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="课本" id="tQt-TN-PWz">
-                        <barButtonItem key="backBarButtonItem" title=" " id="SG9-JN-DB1"/>
+                        <barButtonItem key="leftBarButtonItem" id="YXf-VB-Lvx">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="B99-E8-9Qx">
+                                <rect key="frame" x="16" y="7" width="44" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="清理">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="clearCache:" destination="pGg-6v-bdr" eventType="touchUpInside" id="t7Y-Fc-PFV"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" id="qEg-lA-mjQ">
+                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="3u9-TI-mXL">
+                                <rect key="frame" x="541" y="7" width="44" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="挑选">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="WeT-K7-fIp" kind="show" id="AeJ-CO-1JZ"/>
+                                </connections>
+                            </button>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <segue destination="SJw-Pt-4E4" kind="show" identifier="showDetail" id="a3m-lf-s81"/>
@@ -150,7 +187,7 @@
                         <viewControllerLayoutGuide type="bottom" id="1kl-yI-q5M"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="0Tw-1W-4yp">
-                        <rect key="frame" x="0.0" y="64" width="600" height="906"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="906"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" minimumZoomScale="0.5" maximumZoomScale="4" translatesAutoresizingMaskIntoConstraints="NO" id="YcL-gH-Q1q">
