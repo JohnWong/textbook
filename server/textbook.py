@@ -118,7 +118,7 @@ def fetchsubject(url, title):
             prefix = "www.pep.com.cn/"
             filename = re.search(prefix + ".*", href).group()[len(prefix):-1].replace("/", "-") + ".json"
             fetchbook(link, filename)
-
+            booktitle = booktitle.replace("《品德与生活》", "品生").replace("《品德与社会》", "品社")
             rows.append({
                 "title": booktitle,
                 "link": filename,

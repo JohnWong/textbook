@@ -25,6 +25,7 @@ class MasterViewController: UITableViewController {
         
          struct Segues {
             static let showDetail = "showDetail"
+            static let pickBook = "pickBook"
         }
     }
     
@@ -36,12 +37,24 @@ class MasterViewController: UITableViewController {
         super.viewDidLoad()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
 
-        bookRequest.loadWithCompletion { [unowned self](dict, error) -> Void in
-            if let dict = dict {
-                self.bookItem = BookItem(dict: dict)
-                self.title = self.bookItem.name
-                self.tableView.reloadData()
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("reload"), name: AppConfiguration.Notifications.BookUpdate, object: nil)
+        self.reload()
+    }
+    
+    func reload() {
+        let item: AnyObject? = UserDefaults.objectForKey(UserDefaults.Keys.selectedBook)
+        if let collectItem = item as? CollectItem {
+            bookRequest.bookPath = collectItem.link
+            bookRequest.loadWithCompletion { [unowned self](dict, error) -> Void in
+                if let dict = dict {
+                    self.bookItem = BookItem(dict: dict)
+                    self.title = self.bookItem.name
+                    self.tableView.reloadData()
+                }
             }
+        } else {
+            self.performSegueWithIdentifier(StoryBoard.Segues.pickBook, sender: self)
         }
     }
 

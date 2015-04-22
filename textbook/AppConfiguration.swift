@@ -8,11 +8,15 @@
 
 import Foundation
 
-public class AppConfiguration {
-    public struct URLs {
-        public static let host = "http://localhost:7000"
-        public static let index = host + "/index.json"
-        public static let demo = host + "/index1s.json"
+class AppConfiguration {
+    struct URLs {
+        static let host = "http://localhost:7000"
+        static let index = host + "/index.json"
+        static let demo = host + "/index1s.json"
+    }
+    
+    struct Notifications {
+        static let BookUpdate = "BookUpdate"
     }
     
 }

@@ -8,28 +8,51 @@
 
 import UIKit
 
-let reuseIdentifier = "Cell"
-
 class PickViewController: UICollectionViewController {
+    
+    struct StoryBoard {
+        struct Cells {
+            static let cell = "Cell"
+        }
+        
+        struct SectionHeader {
+            static let Identifier = "SectionHeader"
+            static let LabelTag = 100
+        }
+        
+        struct Segues {
+//            static let showDetail = "showDetail"
+        }
+    }
 
     var categoryRequest = CategoryRequest()
     var categoryItems = Array<CategoryItem>()
     
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Register cell classes
-        self.collectionView!.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: reuseIdentifier)
-
-        categoryRequest.loadWithCompletion { [unowned self](dict, error) -> Void in
+        self.segmentedControl.addTarget(self.collectionView, action: Selector("reloadData"), forControlEvents: UIControlEvents.ValueChanged)
+        self.reloadData()
+        
+    }
+    
+    func reloadData() {
+        self.categoryRequest.loadWithCompletion { [unowned self](dict, error) -> Void in
             if let dict = dict {
                 self.categoryItems = CategoryItem.arrayWithDict(dict)
-                self.collectionView?.reloadData()
+                self.reloadViews()
             }
         }
+    }
+    
+    func reloadViews() {
+        segmentedControl.removeAllSegments()
+        for category in categoryItems {
+            segmentedControl.insertSegmentWithTitle(category.name, atIndex: segmentedControl.numberOfSegments, animated: true)
+        }        
+        segmentedControl.selectedSegmentIndex = 0
+        self.collectionView?.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -40,53 +63,34 @@ class PickViewController: UICollectionViewController {
     // MARK: UICollectionViewDataSource
 
     override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        //#warning Incomplete method implementation -- Return the number of sections
-        return 0
+        if categoryItems.count > segmentedControl.selectedSegmentIndex {
+            return categoryItems[segmentedControl.selectedSegmentIndex].items.count
+        } else {
+            return 0
+        }
     }
 
-
     override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //#warning Incomplete method implementation -- Return the number of items in the section
-        return 0
+        return categoryItems[segmentedControl.selectedSegmentIndex].items[section].rows.count
     }
 
     override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(reuseIdentifier, forIndexPath: indexPath) as! UICollectionViewCell
-    
-        // Configure the cell
-    
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(StoryBoard.Cells.cell, forIndexPath: indexPath) as! CategoryCell
+        cell.setItem(categoryItems[segmentedControl.selectedSegmentIndex].items[indexPath.section].rows[indexPath.row])
         return cell
     }
-
-    // MARK: UICollectionViewDelegate
-
-    /*
-    // Uncomment this method to specify if the specified item should be highlighted during tracking
-    override func collectionView(collectionView: UICollectionView, shouldHighlightItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment this method to specify if the specified item should be selected
-    override func collectionView(collectionView: UICollectionView, shouldSelectItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    */
-
-    /*
-    // Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-    override func collectionView(collectionView: UICollectionView, shouldShowMenuForItemAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, canPerformAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        return false
-    }
-
-    override func collectionView(collectionView: UICollectionView, performAction action: Selector, forItemAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) {
     
+    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: StoryBoard.SectionHeader.Identifier, forIndexPath: indexPath) as! UICollectionReusableView
+        var label = header.viewWithTag(StoryBoard.SectionHeader.LabelTag) as? UILabel
+        label?.text = categoryItems[segmentedControl.selectedSegmentIndex].items[indexPath.section].header
+        return header
     }
-    */
+    
+    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let item = categoryItems[segmentedControl.selectedSegmentIndex].items[indexPath.section].rows[indexPath.row]
+        UserDefaults.setObject(item, forKey: UserDefaults.Keys.selectedBook)
+        NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: AppConfiguration.Notifications.BookUpdate, object: nil))
+    }
 
 }

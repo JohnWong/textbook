@@ -10,7 +10,9 @@ import Foundation
 
 class BookRequest: Request {
     
+    var bookPath: String = ""
+    
     override func urlPath() -> String {
-        return AppConfiguration.URLs.demo
+        return bookPath
     }
 }
