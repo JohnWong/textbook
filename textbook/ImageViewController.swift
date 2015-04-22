@@ -32,7 +32,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     
     func initScrollView() {
         scrollView.minimumZoomScale = 1
-        scrollView.maximumZoomScale = 2
+        scrollView.maximumZoomScale = 3
         scrollView.zoomScale = 1
         scrollView.delegate = self
     }

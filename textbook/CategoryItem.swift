@@ -8,13 +8,10 @@
 
 import UIKit
 
-class CollectItem: NSObject, NSCoding {
-    let title: String
-    let link: String
-    let img: String
-    
-    let i = 3
-    let f = 3.0
+class CollectItem: Item {
+    var title: String
+    var link: String
+    var img: String
     
     init(title: String, link: String, img: String) {
         self.title = title
@@ -32,58 +29,6 @@ class CollectItem: NSObject, NSCoding {
         let link: String = dict["link"] is String ? dict["link"] as! String : ""
         let img: String = dict["img"] is String ? dict["img"] as! String : ""
         self.init(title: title, link: link, img: img)
-    }
-    
-    func encodeWithCoder(aCoder: NSCoder) {
-        let x = reflect(self)
-        for i in 0 ..< x.count {
-            let item = x[i]
-            let key = item.0
-            let value = item.1.value
-            switch value {
-            case let someBool as Bool:
-                aCoder.encodeBool(someBool, forKey: key)
-            case let someInt as Int:
-                aCoder.encodeInteger(someInt, forKey: key)
-            case let someFloat as Float:
-                aCoder.encodeFloat(someFloat, forKey: key)
-            case let someDouble as Double:
-                aCoder.encodeDouble(someDouble, forKey: key)
-            case let someString as String:
-                aCoder.encodeObject(someString, forKey: key)
-            default:
-                println("something else \(key)")
-            }
-        }
-    }
-    
-    required convenience init(coder aDecoder: NSCoder) {
-        self.init()
-        let x = reflect(self)
-        for i in 0 ..< x.count {
-            let item = x[i]
-            let key = item.0
-            let value = item.1.value
-            var newValue: AnyObject?
-            switch value {
-            case let someBool as Bool:
-                newValue = aDecoder.decodeBoolForKey(key)
-                
-            case let someInt as Int:
-                newValue = aDecoder.decodeIntegerForKey(key)
-            case let someFloat as Float:
-                newValue = aDecoder.decodeFloatForKey(key)
-            case let someDouble as Double:
-                newValue = aDecoder.decodeDoubleForKey(key)
-            case let someString as String:
-                let newObj = aDecoder.decodeObjectForKey(key) as! String
-                self.setValue(newObj, forKeyPath: key)
-                continue
-            default:
-                println("something else \(key)")
-            }
-            self.setValue(newValue, forKey: key)
-        }
     }
 }
 

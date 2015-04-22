@@ -91,6 +91,7 @@ class PickViewController: UICollectionViewController {
         let item = categoryItems[segmentedControl.selectedSegmentIndex].items[indexPath.section].rows[indexPath.row]
         UserDefaults.setObject(item, forKey: UserDefaults.Keys.selectedBook)
         NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: AppConfiguration.Notifications.BookUpdate, object: nil))
+        self.navigationController?.popViewControllerAnimated(true)
     }
 
 }

@@ -63,8 +63,7 @@ class BookItem {
                     }
                     
                     if !indexItem.link.isEmpty {
-                        var title = indexItem.title.stringByReplacingOccurrencesOfString("<b>", withString: "").stringByReplacingOccurrencesOfString("</b>", withString: "")
-                        pages.append(IndexItem(title: title, link: indexItem.link, page: indexItem.page))
+                        pages.append(IndexItem(title: indexItem.title, link: indexItem.link, page: indexItem.page))
                     }
                 }
             }

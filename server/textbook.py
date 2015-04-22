@@ -34,7 +34,7 @@ def requesturl(url):
 
 def fetchbook(indexurl, filename):
     print("Book: " + indexurl)
-    if os.path.isfile("/etc/passwd"):
+    if os.path.isfile(filename):
         return
     doc = requesturl(indexurl).recs.documents
     name = None
@@ -43,7 +43,7 @@ def fetchbook(indexurl, filename):
     for node in doc.findChildren("d"):
         titlesplit = node.findChild("t").get_text().split("<br>")
         if name is None:
-            name = titlesplit[0].replace("义务教育课程标准实验教科书　", "").replace(" ", "").replace("　", " ")
+            name = titlesplit[0].replace("义务教育课程标准实验教科书", "").replace(" ", "").replace("　", " ")
             continue
         if len(titlesplit) == 2:
             pages.append({
@@ -166,6 +166,6 @@ def fetchindex(filename):
 
 
 if __name__ == '__main__':
-    # indexurl = "http://www.pep.com.cn/xiaoyu/jiaoshi/tbjx/kbjiaocai/tb1s/index_2152.xml"
-    # fetchbook(indexurl, "index1s.json")
+    # indexurl = "http://www.pep.com.cn/pdysh/jszx/tbjxzy/dzkb/pdysh2x/index_2152.xml"
+    # fetchbook(indexurl, "indexs.json")
     fetchindex("index.json")

@@ -15,15 +15,15 @@ class Item: NSObject, NSCoding {
         case highPriority = 3
     }
     
-    let p = Priority.defaultPriority
-    var s = ""
-    
     func encodeWithCoder(aCoder: NSCoder) {
         let x = reflect(self)
         for i in 0 ..< x.count {
             let item = x[i]
             let key = item.0
             let value = item.1.value
+            if key == "super" {
+                continue
+            }
             switch value {
             case let someBool as Bool:
                 aCoder.encodeBool(someBool, forKey: key)
@@ -33,8 +33,8 @@ class Item: NSObject, NSCoding {
                 aCoder.encodeFloat(someFloat, forKey: key)
             case let someDouble as Double:
                 aCoder.encodeDouble(someDouble, forKey: key)
-            case let someString as String:
-                aCoder.encodeObject(someString, forKey: key)
+            case let someObject as AnyObject:
+                aCoder.encodeObject(someObject, forKey: key)
             default:
                 println("something else \(key)")
             }
@@ -49,29 +49,25 @@ class Item: NSObject, NSCoding {
             let key = item.0
             let value = item.1.value
             var newValue: AnyObject?
+            if key == "super" {
+                continue
+            }
             switch value {
             case let someBool as Bool:
                 newValue = aDecoder.decodeBoolForKey(key)
-//            case let someObject as AnyObject:
-//                newValue = aDecoder.decodeObjectForKey(key)
             case let someInt as Int:
                 newValue = aDecoder.decodeIntegerForKey(key)
             case let someFloat as Float:
                 newValue = aDecoder.decodeFloatForKey(key)
             case let someDouble as Double:
                 newValue = aDecoder.decodeDoubleForKey(key)
-            case let someString as String:
-                newValue = aDecoder.decodeObjectForKey(key) as! String
-//                self.setValue("123", forKeyPath: key)
-//                self.setValue(str, forKey: key)
-                continue
+            case let someObject as AnyObject:
+                newValue = aDecoder.decodeObjectForKey(key)
             default:
                 println("something else \(key)")
             }
-            let me = self as! textbook.CollectItem
-            
-            if let newObject = newValue {
-                me.setValue(newObject, forKeyPath: key)
+            if let newValue: AnyObject = newValue {
+                self.setValue(newValue, forKey: key)
             }
         }
     }

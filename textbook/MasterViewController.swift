@@ -42,6 +42,10 @@ class MasterViewController: UITableViewController {
         self.reload()
     }
     
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     func reload() {
         let item: AnyObject? = UserDefaults.objectForKey(UserDefaults.Keys.selectedBook)
         if let collectItem = item as? CollectItem {
@@ -100,7 +104,11 @@ class MasterViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let indexItem = bookItem.indexes[indexPath.row]
-        let title = indexItem.title.stringByReplacingOccurrencesOfString("<b>", withString: "").stringByReplacingOccurrencesOfString("</b>", withString: "")
+        let title = indexItem.title
+            .stringByReplacingOccurrencesOfString("<b>", withString: "")
+            .stringByReplacingOccurrencesOfString("</b>", withString: "")
+            .stringByReplacingOccurrencesOfString("<strong>", withString: "")
+            .stringByReplacingOccurrencesOfString("</strong>", withString: "")
         var cellIdentifier = StoryBoard.Cells.cell
         if indexItem.title != title {
             cellIdentifier = StoryBoard.Cells.cellBold
