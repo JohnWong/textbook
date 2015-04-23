@@ -21,31 +21,44 @@ class Request {
     }
     
     func loadWithCompletion(completion:(dict: NSDictionary?, error: NSError?) -> Void) {
-        if self.urlPath().lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 0 {
+        loadWithCompletion(completion, progress:nil)
+    }
+    
+    func loadWithCompletion(completion:(dict: NSDictionary?, error: NSError?) -> Void, progress:((percent: Float) -> Void)?) {
+        if urlPath().lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 0 {
             completion(dict: nil, error: NSError(domain: "没有URL", code: 1, userInfo: nil));
             return;
         }
-        let str = RequestCache.getCachedResponseForPath(self.urlPath())
+        let str = RequestCache.getCachedResponseForPath(urlPath())
         if let str = str {
-            self.parse(str, withCompletion: completion)
+            parse(str, withCompletion: completion)
         } else {
-            NSLog("JWRequest: load \(self.urlPath())")
-            self.request?.cancel()
-            self.request = STHTTPRequest(URLString: self.urlPath())
-            self.request?.setValue(self.encoding(), forKey: "responseStringEncodingName")
-            self.request?.completionBlock = {
-                (headers: Dictionary!, body: String!) in
+            NSLog("JWRequest: load \(urlPath())")
+            request?.cancel()
+            request = STHTTPRequest(URLString: urlPath())
+            request?.setValue(encoding(), forKey: "responseStringEncodingName")
+            request?.completionBlock = {
+                [unowned self](headers: Dictionary!, body: String!) in
                 NSLog("JWRequest: completion \(headers as NSDictionary) \(body)")
                 RequestCache.cacheResponse(body, forPath: self.urlPath())
                 self.parse(body, withCompletion: completion)
             }
-            self.request?.errorBlock = { (error) -> Void in
+            request?.errorBlock = {
+                [unowned self](error) -> Void in
                 if error.code == 1 {
                     return
                 }
                 completion(dict: nil, error: error)
             }
-            self.request?.startAsynchronous()
+            request?.downloadProgressBlock = {
+                [unowned self](data, totalBytesReceived, totalBytesExpectedToReceive) -> Void in
+                if let progress = progress {
+                    var percent: Float = 100 * Float(totalBytesReceived)
+                    percent = percent / Float(totalBytesExpectedToReceive)
+                    progress(percent: percent);
+                }
+            }
+            request?.startAsynchronous()
         }
     }
     

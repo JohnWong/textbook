@@ -32,19 +32,21 @@ def requesturl(url):
     return BeautifulSoup(result)
 
 
-def fetchbook(indexurl, filename):
+def fetchbook(indexurl, filename, booktitle):
     print("Book: " + indexurl)
     if os.path.isfile(filename):
         return
     doc = requesturl(indexurl).recs.documents
-    name = None
+    isfirst = True
     pages = []
 
     for node in doc.findChildren("d"):
         titlesplit = node.findChild("t").get_text().split("<br>")
-        if name is None:
-            name = titlesplit[0].replace("义务教育课程标准实验教科书", "").replace(" ", "").replace("　", " ")
-            continue
+        if isfirst:
+            isfirst = False
+            if titlesplit[0] != "扉页":
+                continue
+            pass
         if len(titlesplit) == 2:
             pages.append({
                 "title": titlesplit[0],
@@ -75,7 +77,7 @@ def fetchbook(indexurl, filename):
         pass
 
     jsonstr = json.dumps({
-        "name": name,
+        "name": booktitle,
         "pages": pages
     })
     with open(filename, "w") as f:
@@ -90,7 +92,7 @@ def fetchsubject(url, title):
     listurls = []
     sections = []
 
-    for keyword in ["电子课本", "简谱课本", "线谱课本"]:
+    for keyword in ["电子课本", "教师用书", "简谱课本", "线谱课本"]:
         kb = doc.find("a", text=keyword)
         if kb:
             headers.append(keyword)
@@ -117,7 +119,7 @@ def fetchsubject(url, title):
             # fetch book json
             prefix = "www.pep.com.cn/"
             filename = re.search(prefix + ".*", href).group()[len(prefix):-1].replace("/", "-") + ".json"
-            fetchbook(link, filename)
+            fetchbook(link, filename, booktitle)
             booktitle = booktitle.replace("《品德与生活》", "品生").replace("《品德与社会》", "品社")
             rows.append({
                 "title": booktitle,
@@ -126,7 +128,7 @@ def fetchsubject(url, title):
             })
 
         sections.append({
-            "header": title + headers[i] if headers[i] != "电子课本" else title,
+            "header": title + headers[i],
             "rows": rows
         })
         pass

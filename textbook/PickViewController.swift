@@ -32,22 +32,35 @@ class PickViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.segmentedControl.hidden = true
         self.segmentedControl.addTarget(self.collectionView, action: Selector("reloadData"), forControlEvents: UIControlEvents.ValueChanged)
         self.reloadData()
         
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.cancelSGProgress()
+    }
+    
     func reloadData() {
-        self.categoryRequest.loadWithCompletion { [unowned self](dict, error) -> Void in
-            if let dict = dict {
-                self.categoryItems = CategoryItem.arrayWithDict(dict)
-                self.reloadViews()
-            }
-        }
+        self.categoryRequest.loadWithCompletion(
+            {
+                [unowned self](dict, error) -> Void in
+                self.navigationController?.setSGProgressPercentage(100)
+                if let dict = dict {
+                    self.categoryItems = CategoryItem.arrayWithDict(dict)
+                    self.reloadViews()
+                }
+            }, progress: {
+                [unowned self](percent) -> Void in
+                self.navigationController?.setSGProgressPercentage(percent, andTitle: "加载中...")
+            })
     }
     
     func reloadViews() {
         segmentedControl.removeAllSegments()
+        segmentedControl.hidden = false
         for category in categoryItems {
             segmentedControl.insertSegmentWithTitle(category.name, atIndex: segmentedControl.numberOfSegments, animated: true)
         }        

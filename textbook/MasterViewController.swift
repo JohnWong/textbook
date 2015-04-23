@@ -50,13 +50,20 @@ class MasterViewController: UITableViewController {
         let item: AnyObject? = UserDefaults.objectForKey(UserDefaults.Keys.selectedBook)
         if let collectItem = item as? CollectItem {
             bookRequest.bookPath = collectItem.link
-            bookRequest.loadWithCompletion { [unowned self](dict, error) -> Void in
-                if let dict = dict {
-                    self.bookItem = BookItem(dict: dict)
-                    self.title = self.bookItem.name
-                    self.tableView.reloadData()
-                }
-            }
+            bookRequest.loadWithCompletion(
+                {
+                    [unowned self](dict, error) -> Void in
+                    if let dict = dict {
+                        self.bookItem = BookItem(dict: dict)
+                        self.title = self.bookItem.name
+                        self.tableView.reloadData()
+                    } else {
+                        AppConfiguration.showError("数据加载失败", subtitle: error?.localizedDescription)
+                    }
+                }, progress: {
+                    [unowned self](percent) -> Void in
+                    self.navigationController?.setSGProgressPercentage(percent, andTitle: "加载中...")
+                })
         } else {
             self.performSegueWithIdentifier(StoryBoard.Segues.pickBook, sender: self)
         }

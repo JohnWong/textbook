@@ -19,4 +19,20 @@ class AppConfiguration {
         static let BookUpdate = "BookUpdate"
     }
     
+    class func showError(message: String, subtitle: String?) {
+        var rootViewController:UIViewController = UIApplication.sharedApplication().keyWindow!.rootViewController!
+        TSMessage.showNotificationInViewController(
+            TSMessage.defaultViewController(),
+            title: message,
+            subtitle: subtitle,
+            image: nil,
+            type: TSMessageNotificationType.Error,
+            duration: 1,
+            callback: nil,
+            buttonTitle: nil,
+            buttonCallback: nil,
+            atPosition: TSMessageNotificationPosition.NavBarOverlay,
+            canBeDismissedByUser: true)
+    }
+    
 }
