@@ -17,6 +17,11 @@ class MasterViewController: UITableViewController {
         RequestCache.clearCachedResponse()
     }
     
+    @IBAction func showSettings(sender: AnyObject) {
+        self.sideMenuViewController.presentLeftMenuViewController()
+    }
+    
+    
     struct StoryBoard {
          struct Cells {
             static let cell = "Cell"
