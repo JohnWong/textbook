@@ -36,12 +36,16 @@ def fetchbook(indexurl, filename, booktitle):
     print("Book: " + indexurl)
     if os.path.isfile(filename):
         return
+    lockfile = filename + ".lock"
+    with open(lockfile, "w") as f:
+        f.write("")
     doc = requesturl(indexurl).recs.documents
     isfirst = True
     pages = []
 
     for node in doc.findChildren("d"):
-        titlesplit = node.findChild("t").get_text().split("<br>")
+        text = node.findChild("t").get_text()
+        titlesplit = text.split("<br>") if text.find("<br>") >= 0 else text.split("</br>")
         if isfirst:
             isfirst = False
             if titlesplit[0] != "扉页":
@@ -80,6 +84,7 @@ def fetchbook(indexurl, filename, booktitle):
         "name": booktitle,
         "pages": pages
     })
+    os.remove(lockfile)
     with open(filename, "w") as f:
         f.write(jsonstr)
     pass
@@ -114,18 +119,26 @@ def fetchsubject(url, title):
                 continue
             booktitle = span.find("a").get_text()
             href = listurl + span.find("a").get("href")[2:]
-            link = href + "index_2152.xml"
             img = listurl + node.find("img").get("src")[2:] if node.find("img") else ""
-            # fetch book json
-            prefix = "www.pep.com.cn/"
-            filename = re.search(prefix + ".*", href).group()[len(prefix):-1].replace("/", "-") + ".json"
-            fetchbook(link, filename, booktitle)
-            booktitle = booktitle.replace("《品德与生活》", "品生").replace("《品德与社会》", "品社")
-            rows.append({
-                "title": booktitle,
-                "link": filename,
-                "img": img
-            })
+
+            if href.find("xe/jszx/tbjxzy") < 0:
+                booktitles = [booktitle]
+                hrefs = [href]
+                imgs = [img]
+                pass
+
+            for i in range(len(booktitles)):
+                link = hrefs[i] + "index_2152.xml"
+                # fetch book json
+                prefix = "www.pep.com.cn/"
+                filename = re.search(prefix + ".*", hrefs[i]).group()[len(prefix):-1].replace("/", "-") + ".json"
+                fetchbook(link, filename, booktitles[i])
+                rows.append({
+                    "title": booktitles[i].replace("《品德与生活》", "品生").replace("《品德与社会》", "品社"),
+                    "link": filename,
+                    "img": imgs[i]
+                })
+                pass
 
         sections.append({
             "header": title + headers[i],
@@ -145,6 +158,8 @@ def fetchindex(filename):
         if not catdiv:
             continue
         catname = node.find(class_="darkgreen").get_text().replace(" ", "")
+        if catname == "相关教育":
+            continue
         subjects = []
         for subject in node.find_all("a"):
             link = url + subject.get("href")[2:]
