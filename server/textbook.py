@@ -5,9 +5,13 @@ from bs4 import BeautifulSoup
 import json
 import sys
 import os
+import HTMLParser
 
 reload(sys)
 sys.setdefaultencoding("utf-8")
+
+
+htmlparser = HTMLParser.HTMLParser()
 
 
 def replaceurl(url, subfix):
@@ -53,7 +57,7 @@ def fetchbook(indexurl, filename, booktitle):
             pass
         if len(titlesplit) == 2:
             pages.append({
-                "title": titlesplit[0],
+                "title": htmlparser.unescape(titlesplit[0]),
                 "page": 0,
                 "link": ""
             })
@@ -63,6 +67,9 @@ def fetchbook(indexurl, filename, booktitle):
             title = titlesplit[0]
             pass
         link = node.findChild("l").get_text()
+        # see http://www.pep.com.cn/xe/jszx/tbjxzy/ltyy/ltw/dzkb/200703/t20070314_334538.htm
+        if link.find("../../../../../../../") >= 0:
+            continue
         link = fetchimg(indexurl, link)
 
         backward = 1 if len(titlesplit) == 1 else 2
@@ -73,7 +80,7 @@ def fetchbook(indexurl, filename, booktitle):
             page = pages[len(pages) - backward]["page"] + 1 if len(pages) > 0 and pages[len(pages) - backward]["page"] else 0
 
         pages.append({
-            "title": title,
+            "title": htmlparser.unescape(title),
             "link": link,
             "page": page
         })
@@ -84,10 +91,28 @@ def fetchbook(indexurl, filename, booktitle):
         "name": booktitle,
         "pages": pages
     })
-    os.remove(lockfile)
     with open(filename, "w") as f:
         f.write(jsonstr)
+    os.remove(lockfile)
     pass
+
+
+def parseTable(listurl):
+    doc = requesturl(listurl)
+    ret = []
+    for node in doc.find("table").find_all("td"):
+        span = node.find("span")
+        if not span:
+            continue
+        booktitle = span.find("a").get_text()
+        href = listurl + span.find("a").get("href")[2:]
+        img = listurl + node.find("img").get("src")[2:] if node.find("img") else ""
+        ret.append((
+            booktitle,
+            href,
+            img
+        ))
+    return ret
 
 
 def fetchsubject(url, title):
@@ -111,39 +136,31 @@ def fetchsubject(url, title):
 
     for i in range(len(listurls)):
         listurl = url + listurls[i]
-        doc = requesturl(listurl)
         rows = []
-        for node in doc.find("table").find_all("td"):
-            span = node.find("span")
-            if not span:
-                continue
-            booktitle = span.find("a").get_text()
-            href = listurl + span.find("a").get("href")[2:]
-            img = listurl + node.find("img").get("src")[2:] if node.find("img") else ""
+        if listurl.find("xe/jszx/tbjxzy") < 0:
+            sublisturls = [listurl]
+        else:
+            sublisturls = map(lambda (a, b, c): b, parseTable(listurl))
+            pass
 
-            if href.find("xe/jszx/tbjxzy") < 0:
-                booktitles = [booktitle]
-                hrefs = [href]
-                imgs = [img]
-                pass
-
-            for i in range(len(booktitles)):
-                link = hrefs[i] + "index_2152.xml"
+        for sublisturl in sublisturls:
+            for (booktitle, href, img) in parseTable(sublisturl):
+                link = href + "index_2152.xml"
                 # fetch book json
                 prefix = "www.pep.com.cn/"
-                filename = re.search(prefix + ".*", hrefs[i]).group()[len(prefix):-1].replace("/", "-") + ".json"
-                fetchbook(link, filename, booktitles[i])
+                filename = re.search(prefix + ".*", href).group()[len(prefix):-1].replace("/", "-") + ".json"
+                fetchbook(link, filename, booktitle)
                 rows.append({
-                    "title": booktitles[i].replace("《品德与生活》", "品生").replace("《品德与社会》", "品社"),
+                    "title": booktitle.replace("《品德与生活》", "品生").replace("《品德与社会》", "品社"),
                     "link": filename,
-                    "img": imgs[i]
+                    "img": img
                 })
                 pass
-
-        sections.append({
-            "header": title + headers[i],
-            "rows": rows
-        })
+            sections.append({
+                "header": title + headers[i],
+                "rows": rows
+            })
+            pass
         pass
     return sections
 

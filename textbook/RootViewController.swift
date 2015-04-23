@@ -9,11 +9,28 @@
 import UIKit
 
 class RootViewController: RESideMenu {
+    
+    struct StoryBoard {
+        struct ControllerIdentifiers {
+            static let contentViewController = "contentViewController"
+            static let settingViewController = "settingViewController"
+        }
+    }
 
     override func awakeFromNib() {
         var storyboard: UIStoryboard = self.storyboard!
         
-        self.contentViewController = storyboard.instantiateViewControllerWithIdentifier("contentViewController") as! UIViewController
-        self.leftMenuViewController = storyboard.instantiateViewControllerWithIdentifier("settingViewController") as! UIViewController
+        self.menuPreferredStatusBarStyle = UIStatusBarStyle.LightContent
+        self.contentViewShadowColor = UIColor.blackColor()
+        self.contentViewShadowOffset = CGSizeMake(0, 0);
+        self.contentViewShadowOpacity = 0.6;
+        self.contentViewShadowRadius = 12;
+        self.contentViewShadowEnabled = true;
+    
+        
+        self.contentViewController = storyboard.instantiateViewControllerWithIdentifier(StoryBoard.ControllerIdentifiers.contentViewController) as! UIViewController
+        self.leftMenuViewController = storyboard.instantiateViewControllerWithIdentifier(StoryBoard.ControllerIdentifiers.settingViewController) as! UIViewController
+        
+        self.backgroundImage = UIImage(named: "Stars");
     }
 }
