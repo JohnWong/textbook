@@ -47,10 +47,11 @@ class PickViewController: UICollectionViewController {
         self.categoryRequest.loadWithCompletion(
             {
                 [unowned self](dict, error) -> Void in
-                self.navigationController?.setSGProgressPercentage(100)
                 if let dict = dict {
                     self.categoryItems = CategoryItem.arrayWithDict(dict)
                     self.reloadViews()
+                } else {
+                    AppConfiguration.showError("数据加载失败", subtitle: error?.localizedDescription)
                 }
             }, progress: {
                 [unowned self](percent) -> Void in

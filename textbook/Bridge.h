@@ -10,4 +10,5 @@
 #import "UIImageView+UIActivityIndicatorForSDWebImage.h"
 #import "UINavigationController+SGProgress.h"
 #import "TSMessage.h"
+#import "RESideMenu.h"
 #import <CommonCrypto/CommonCrypto.h>

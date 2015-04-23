@@ -44,6 +44,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
             
         })
     }
+    
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
         if !pageAnimationFinished || index == 0 {
             return nil

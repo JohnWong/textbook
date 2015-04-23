@@ -16,6 +16,7 @@
 		522ED1901ADAA4E40080ABD3 /* AppConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED18F1ADAA4E40080ABD3 /* AppConfiguration.swift */; };
 		522ED1921ADAA9940080ABD3 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED1911ADAA9940080ABD3 /* Request.swift */; };
 		522ED1951ADACE4A0080ABD3 /* BookRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED1941ADACE4A0080ABD3 /* BookRequest.swift */; };
+		526E4D271AE91B12001B8E99 /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526E4D261AE91B12001B8E99 /* RootViewController.swift */; };
 		527AEFB81AE73F8C00E1B178 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 527AEFB71AE73F8C00E1B178 /* CategoryCell.swift */; };
 		528703671ADD815E00C5F99E /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 528703661ADD815E00C5F99E /* PageViewController.swift */; };
 		5294FCBF1AE5EB99007E913D /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5294FCBE1AE5EB99007E913D /* ImageViewController.swift */; };
@@ -54,6 +55,7 @@
 		522ED1911ADAA9940080ABD3 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		522ED1931ADAA9EE0080ABD3 /* Bridge.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Bridge.h; sourceTree = "<group>"; };
 		522ED1941ADACE4A0080ABD3 /* BookRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookRequest.swift; sourceTree = "<group>"; };
+		526E4D261AE91B12001B8E99 /* RootViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
 		527AEFB71AE73F8C00E1B178 /* CategoryCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
 		528703661ADD815E00C5F99E /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		5294FCBE1AE5EB99007E913D /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				522ED16B1ADAA33F0080ABD3 /* Supporting Files */,
 				52D6E1DF1AE7600B00044F4A /* UserDefaults.swift */,
 				52D6E1E11AE777D400044F4A /* Item.swift */,
+				526E4D261AE91B12001B8E99 /* RootViewController.swift */,
 			);
 			path = textbook;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				522ED1921ADAA9940080ABD3 /* Request.swift in Sources */,
 				5294FCC11AE5F780007E913D /* RequestCache.swift in Sources */,
 				522ED1701ADAA33F0080ABD3 /* MasterViewController.swift in Sources */,
+				526E4D271AE91B12001B8E99 /* RootViewController.swift in Sources */,
 				522ED1901ADAA4E40080ABD3 /* AppConfiguration.swift in Sources */,
 				52B8AF891AE6B1E700D8B1DC /* PickViewController.swift in Sources */,
 				52B8AF871AE68B6C00D8B1DC /* CategoryRequest.swift in Sources */,

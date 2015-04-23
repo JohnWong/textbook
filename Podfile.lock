@@ -1,5 +1,6 @@
 PODS:
   - HexColors (2.2.1)
+  - RESideMenu (4.0.7)
   - Reveal-iOS-SDK (1.0.6)
   - SDWebImage (3.7.2):
     - SDWebImage/Core (= 3.7.2)
@@ -12,6 +13,7 @@ PODS:
     - SDWebImage (~> 3.7)
 
 DEPENDENCIES:
+  - RESideMenu
   - Reveal-iOS-SDK (= 1.0.6)
   - SGNavigationProgress (from `https://raw.githubusercontent.com/JohnWong/SGNavigationProgress/master/SGNavigationProgress.podspec`)
   - STHTTPRequest
@@ -24,6 +26,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
+  RESideMenu: f24c508404b49c667344c54aba7e590883533958
   Reveal-iOS-SDK: 5c06829ab290f1314d15c0f66aaa572fd2342c81
   SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
   SGNavigationProgress: 99161b09c3f7fbcf7636b8f93939426d41290870

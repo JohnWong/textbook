@@ -46,6 +46,11 @@ class MasterViewController: UITableViewController {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.cancelSGProgress()
+    }
+    
     func reload() {
         let item: AnyObject? = UserDefaults.objectForKey(UserDefaults.Keys.selectedBook)
         if let collectItem = item as? CollectItem {
