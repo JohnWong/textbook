@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		5214D92F1AE95D45008E1668 /* Stars@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5214D92E1AE95D45008E1668 /* Stars@2x.png */; };
 		5214D9331AE96002008E1668 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5214D9321AE96002008E1668 /* SettingViewController.swift */; };
-		5214D9371AE965FC008E1668 /* IconProfile@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5214D9351AE965FC008E1668 /* IconProfile@2x.png */; };
 		5214D9391AE96CF3008E1668 /* IconClear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 5214D9381AE96CF3008E1668 /* IconClear@2x.png */; };
 		522ED16E1ADAA33F0080ABD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED16D1ADAA33F0080ABD3 /* AppDelegate.swift */; };
 		522ED1701ADAA33F0080ABD3 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 522ED16F1ADAA33F0080ABD3 /* MasterViewController.swift */; };
@@ -31,6 +30,9 @@
 		52C5381E1AEAA0710042904E /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C5381D1AEAA0710042904E /* Utility.swift */; };
 		52C538201AEAB70E0042904E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C5381F1AEAB70E0042904E /* WebViewController.swift */; };
 		52C538221AEAC33F0042904E /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C538211AEAC33F0042904E /* NavigationViewController.swift */; };
+		52C538241AEAC6C10042904E /* IconAbout@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C538231AEAC6C10042904E /* IconAbout@2x.png */; };
+		52C538261AEAC76F0042904E /* IconPrivacy@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C538251AEAC76F0042904E /* IconPrivacy@2x.png */; };
+		52C538281AEAC7B90042904E /* IconHelp@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 52C538271AEAC7B90042904E /* IconHelp@2x.png */; };
 		52D6E1E01AE7600B00044F4A /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6E1DF1AE7600B00044F4A /* UserDefaults.swift */; };
 		52D6E1E21AE777D400044F4A /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6E1E11AE777D400044F4A /* Item.swift */; };
 		52F428941ADB743C0007389C /* BookItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F428931ADB743C0007389C /* BookItem.swift */; };
@@ -50,7 +52,6 @@
 /* Begin PBXFileReference section */
 		5214D92E1AE95D45008E1668 /* Stars@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Stars@2x.png"; sourceTree = "<group>"; };
 		5214D9321AE96002008E1668 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
-		5214D9351AE965FC008E1668 /* IconProfile@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconProfile@2x.png"; sourceTree = "<group>"; };
 		5214D9381AE96CF3008E1668 /* IconClear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconClear@2x.png"; sourceTree = "<group>"; };
 		522ED1681ADAA33F0080ABD3 /* textbook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = textbook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		522ED16C1ADAA33F0080ABD3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -77,6 +78,9 @@
 		52C5381D1AEAA0710042904E /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		52C5381F1AEAB70E0042904E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
 		52C538211AEAC33F0042904E /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
+		52C538231AEAC6C10042904E /* IconAbout@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconAbout@2x.png"; sourceTree = "<group>"; };
+		52C538251AEAC76F0042904E /* IconPrivacy@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconPrivacy@2x.png"; sourceTree = "<group>"; };
+		52C538271AEAC7B90042904E /* IconHelp@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "IconHelp@2x.png"; sourceTree = "<group>"; };
 		52D6E1DF1AE7600B00044F4A /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		52D6E1E11AE777D400044F4A /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		52F428931ADB743C0007389C /* BookItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookItem.swift; sourceTree = "<group>"; };
@@ -107,8 +111,10 @@
 		5214D92D1AE95D45008E1668 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				52C538271AEAC7B90042904E /* IconHelp@2x.png */,
+				52C538231AEAC6C10042904E /* IconAbout@2x.png */,
+				52C538251AEAC76F0042904E /* IconPrivacy@2x.png */,
 				5214D9381AE96CF3008E1668 /* IconClear@2x.png */,
-				5214D9351AE965FC008E1668 /* IconProfile@2x.png */,
 				5214D92E1AE95D45008E1668 /* Stars@2x.png */,
 			);
 			path = Resources;
@@ -293,10 +299,12 @@
 			files = (
 				522ED1751ADAA3400080ABD3 /* Main.storyboard in Resources */,
 				522ED17A1ADAA3400080ABD3 /* LaunchScreen.xib in Resources */,
-				5214D9371AE965FC008E1668 /* IconProfile@2x.png in Resources */,
 				5214D9391AE96CF3008E1668 /* IconClear@2x.png in Resources */,
+				52C538241AEAC6C10042904E /* IconAbout@2x.png in Resources */,
 				5214D92F1AE95D45008E1668 /* Stars@2x.png in Resources */,
 				522ED1771ADAA3400080ABD3 /* Images.xcassets in Resources */,
+				52C538281AEAC7B90042904E /* IconHelp@2x.png in Resources */,
+				52C538261AEAC76F0042904E /* IconPrivacy@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
