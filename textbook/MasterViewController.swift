@@ -44,6 +44,7 @@ class MasterViewController: UITableViewController {
 
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("reload"), name: AppConfiguration.Notifications.BookUpdate, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("cacheCleared"), name: AppConfiguration.Notifications.CacheClear, object: nil)
         self.reload()
     }
     
@@ -54,6 +55,10 @@ class MasterViewController: UITableViewController {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.cancelSGProgress()
+    }
+    
+    func cacheCleared() {
+        AppConfiguration.showError("缓存已清空", subtitle: nil)
     }
     
     func reload() {

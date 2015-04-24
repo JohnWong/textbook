@@ -10,14 +10,21 @@ import UIKit
 
 class SettingViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
-    let icons = ["IconClear", "IconProfile"]
+    struct StoryBoard {
+        struct Cells {
+            static let menuCell = "menuCell"
+        }
+    }
+    
+    static let IconClear = "IconClear"
+    static let IconProfile = "IconProfile"
+    let icons = [IconClear, IconProfile]
     let titles = ["清空缓存", "Profile"]
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-                
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,7 +43,8 @@ class SettingViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(StoryBoard.Cells.menuCell, forIndexPath: indexPath) as! UITableViewCell
+        cell.selectedBackgroundView = UIView()
         cell.imageView?.image = UIImage(named: icons[indexPath.row])
         cell.textLabel?.text = titles[indexPath.row]
         return cell
@@ -46,14 +54,23 @@ class SettingViewController: UIViewController, UITableViewDataSource, UITableVie
         return 54
     }
     
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using [segue destinationViewController].
-        // Pass the selected object to the new view controller.
+    // MARK: - Table view delegate
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        switch icons[indexPath.row] {
+        case SettingViewController.IconClear:
+            clearCache()
+        case SettingViewController.IconProfile:
+            break
+        default:
+            break
+        }
     }
-    */
+    
+    // MARK: - Action
+    func clearCache() {
+        RequestCache.clearCachedResponse()
+        self.sideMenuViewController.hideMenuViewController()
+        NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: AppConfiguration.Notifications.CacheClear, object: nil))
+    }
 
 }

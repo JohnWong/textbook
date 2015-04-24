@@ -17,6 +17,7 @@ class AppConfiguration {
     
     struct Notifications {
         static let BookUpdate = "BookUpdate"
+        static let CacheClear = "CacheClear"
     }
     
     class func showError(message: String, subtitle: String?) {
