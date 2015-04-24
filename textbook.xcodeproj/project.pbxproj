@@ -28,6 +28,9 @@
 		52B8AF871AE68B6C00D8B1DC /* CategoryRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B8AF861AE68B6C00D8B1DC /* CategoryRequest.swift */; };
 		52B8AF891AE6B1E700D8B1DC /* PickViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B8AF881AE6B1E700D8B1DC /* PickViewController.swift */; };
 		52B8AF8B1AE6B4D800D8B1DC /* CategoryItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52B8AF8A1AE6B4D800D8B1DC /* CategoryItem.swift */; };
+		52C5381E1AEAA0710042904E /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C5381D1AEAA0710042904E /* Utility.swift */; };
+		52C538201AEAB70E0042904E /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C5381F1AEAB70E0042904E /* WebViewController.swift */; };
+		52C538221AEAC33F0042904E /* NavigationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52C538211AEAC33F0042904E /* NavigationViewController.swift */; };
 		52D6E1E01AE7600B00044F4A /* UserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6E1DF1AE7600B00044F4A /* UserDefaults.swift */; };
 		52D6E1E21AE777D400044F4A /* Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D6E1E11AE777D400044F4A /* Item.swift */; };
 		52F428941ADB743C0007389C /* BookItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F428931ADB743C0007389C /* BookItem.swift */; };
@@ -71,6 +74,9 @@
 		52B8AF861AE68B6C00D8B1DC /* CategoryRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryRequest.swift; sourceTree = "<group>"; };
 		52B8AF881AE6B1E700D8B1DC /* PickViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickViewController.swift; sourceTree = "<group>"; };
 		52B8AF8A1AE6B4D800D8B1DC /* CategoryItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryItem.swift; sourceTree = "<group>"; };
+		52C5381D1AEAA0710042904E /* Utility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		52C5381F1AEAB70E0042904E /* WebViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		52C538211AEAC33F0042904E /* NavigationViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationViewController.swift; sourceTree = "<group>"; };
 		52D6E1DF1AE7600B00044F4A /* UserDefaults.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaults.swift; sourceTree = "<group>"; };
 		52D6E1E11AE777D400044F4A /* Item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Item.swift; sourceTree = "<group>"; };
 		52F428931ADB743C0007389C /* BookItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BookItem.swift; sourceTree = "<group>"; };
@@ -111,6 +117,7 @@
 		522ED15F1ADAA33F0080ABD3 = {
 			isa = PBXGroup;
 			children = (
+				52C538211AEAC33F0042904E /* NavigationViewController.swift */,
 				522ED16A1ADAA33F0080ABD3 /* textbook */,
 				522ED1821ADAA3400080ABD3 /* textbookTests */,
 				522ED1691ADAA33F0080ABD3 /* Products */,
@@ -153,6 +160,8 @@
 				5214D9321AE96002008E1668 /* SettingViewController.swift */,
 				522ED16B1ADAA33F0080ABD3 /* Supporting Files */,
 				52D6E1DF1AE7600B00044F4A /* UserDefaults.swift */,
+				52C5381D1AEAA0710042904E /* Utility.swift */,
+				52C5381F1AEAB70E0042904E /* WebViewController.swift */,
 			);
 			path = textbook;
 			sourceTree = "<group>";
@@ -338,12 +347,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52C538201AEAB70E0042904E /* WebViewController.swift in Sources */,
 				527AEFB81AE73F8C00E1B178 /* CategoryCell.swift in Sources */,
 				522ED1951ADACE4A0080ABD3 /* BookRequest.swift in Sources */,
+				52C5381E1AEAA0710042904E /* Utility.swift in Sources */,
 				5294FCBF1AE5EB99007E913D /* ImageViewController.swift in Sources */,
 				5214D9331AE96002008E1668 /* SettingViewController.swift in Sources */,
 				522ED1921ADAA9940080ABD3 /* Request.swift in Sources */,
 				5294FCC11AE5F780007E913D /* RequestCache.swift in Sources */,
+				52C538221AEAC33F0042904E /* NavigationViewController.swift in Sources */,
 				522ED1701ADAA33F0080ABD3 /* MasterViewController.swift in Sources */,
 				526E4D271AE91B12001B8E99 /* RootViewController.swift in Sources */,
 				522ED1901ADAA4E40080ABD3 /* AppConfiguration.swift in Sources */,

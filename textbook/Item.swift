@@ -27,14 +27,19 @@ class Item: NSObject, NSCoding {
             switch value {
             case let someBool as Bool:
                 aCoder.encodeBool(someBool, forKey: key)
+                break
             case let someInt as Int:
                 aCoder.encodeInteger(someInt, forKey: key)
+                break
             case let someFloat as Float:
                 aCoder.encodeFloat(someFloat, forKey: key)
+                break
             case let someDouble as Double:
                 aCoder.encodeDouble(someDouble, forKey: key)
+                break
             case let someObject as AnyObject:
                 aCoder.encodeObject(someObject, forKey: key)
+                break
             default:
                 println("something else \(key)")
             }

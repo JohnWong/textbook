@@ -31,6 +31,7 @@ class MasterViewController: UITableViewController {
          struct Segues {
             static let showDetail = "showDetail"
             static let pickBook = "pickBook"
+            static let showWebView = "showWebView"
         }
     }
     
@@ -42,9 +43,7 @@ class MasterViewController: UITableViewController {
         super.viewDidLoad()
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
 
-        
         NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("reload"), name: AppConfiguration.Notifications.BookUpdate, object: nil)
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("cacheCleared"), name: AppConfiguration.Notifications.CacheClear, object: nil)
         self.reload()
     }
     
@@ -55,10 +54,6 @@ class MasterViewController: UITableViewController {
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.cancelSGProgress()
-    }
-    
-    func cacheCleared() {
-        AppConfiguration.showError("缓存已清空", subtitle: nil)
     }
     
     func reload() {

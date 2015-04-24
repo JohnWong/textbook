@@ -16,10 +16,12 @@ class SettingViewController: UIViewController, UITableViewDataSource, UITableVie
         }
     }
     
+    static let IconAbout = "IconAbout"
+    static let IconHelp = "IconHelp"
+    static let IconPrivacy = "IconPrivacy"
     static let IconClear = "IconClear"
-    static let IconProfile = "IconProfile"
-    let icons = [IconClear, IconProfile]
-    let titles = ["清空缓存", "Profile"]
+    let icons = [IconAbout, IconHelp, IconPrivacy, IconClear]
+    let titles = ["关于", "帮助", "隐私政策", "清空缓存"]
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -31,7 +33,7 @@ class SettingViewController: UIViewController, UITableViewDataSource, UITableVie
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
+    
     // MARK: - Table view data source
 
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -39,7 +41,7 @@ class SettingViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return icons.count
+        return self.icons.count
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -56,19 +58,28 @@ class SettingViewController: UIViewController, UITableViewDataSource, UITableVie
     
     // MARK: - Table view delegate
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.sideMenuViewController.hideMenuViewController()
+        let controller: NavigationViewController = self.sideMenuViewController.contentViewController as! NavigationViewController
         switch icons[indexPath.row] {
         case SettingViewController.IconClear:
             clearCache()
-        case SettingViewController.IconProfile:
-            break
+            return
+        case SettingViewController.IconAbout:
+            controller.selectedUrl = 0
+        case SettingViewController.IconHelp:
+            controller.selectedUrl = 1
+        case SettingViewController.IconPrivacy:
+            controller.selectedUrl = 2
         default:
             break
         }
+        controller.performSegueWithIdentifier("pushWebView", sender: self)
     }
     
     // MARK: - Action
     func clearCache() {
         RequestCache.clearCachedResponse()
+        SDImageCache.sharedImageCache().clearDisk()
         self.sideMenuViewController.hideMenuViewController()
         NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: AppConfiguration.Notifications.CacheClear, object: nil))
     }

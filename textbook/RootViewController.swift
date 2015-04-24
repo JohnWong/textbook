@@ -16,6 +16,15 @@ class RootViewController: RESideMenu {
             static let settingViewController = "settingViewController"
         }
     }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("cacheCleared"), name: AppConfiguration.Notifications.CacheClear, object: nil)
+    }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
 
     override func awakeFromNib() {
         var storyboard: UIStoryboard = self.storyboard!
@@ -32,5 +41,9 @@ class RootViewController: RESideMenu {
         self.leftMenuViewController = storyboard.instantiateViewControllerWithIdentifier(StoryBoard.ControllerIdentifiers.settingViewController) as! UIViewController
         
         self.backgroundImage = UIImage(named: "Stars");
+    }
+    
+    func cacheCleared() {
+        AppConfiguration.showSuccess("缓存已清空", subtitle: nil)
     }
 }

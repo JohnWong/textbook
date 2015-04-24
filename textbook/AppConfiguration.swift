@@ -36,4 +36,20 @@ class AppConfiguration {
             canBeDismissedByUser: true)
     }
     
+    class func showSuccess(message: String, subtitle: String?) {
+        var rootViewController:UIViewController = UIApplication.sharedApplication().keyWindow!.rootViewController!
+        TSMessage.showNotificationInViewController(
+            TSMessage.defaultViewController(),
+            title: message,
+            subtitle: subtitle,
+            image: nil,
+            type: TSMessageNotificationType.Success,
+            duration: 1,
+            callback: nil,
+            buttonTitle: nil,
+            buttonCallback: nil,
+            atPosition: TSMessageNotificationPosition.NavBarOverlay,
+            canBeDismissedByUser: true)
+    }
+    
 }

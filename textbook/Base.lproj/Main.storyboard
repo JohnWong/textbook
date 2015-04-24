@@ -36,10 +36,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="54" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="FOI-lo-rob">
-                                <rect key="frame" x="0.0" y="246" width="600" height="108"/>
+                                <rect key="frame" x="0.0" y="192" width="600" height="216"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="108" id="wnc-8q-l3u"/>
+                                    <constraint firstAttribute="height" constant="216" id="wnc-8q-l3u"/>
                                 </constraints>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -84,12 +84,13 @@
         <!--Master-->
         <scene sceneID="cUi-kZ-frf">
             <objects>
-                <navigationController storyboardIdentifier="contentViewController" title="Master" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rS3-R9-Ivy" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="contentViewController" title="Master" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rS3-R9-Ivy" customClass="NavigationViewController" customModule="textbook" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translucent="NO" id="yXu-0R-QUA">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
                         <segue destination="pGg-6v-bdr" kind="relationship" relationship="rootViewController" id="V16-IH-yq9"/>
+                        <segue destination="TfZ-3K-bns" kind="show" identifier="pushWebView" id="kMv-ss-Jgo"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eq9-QA-ai8" sceneMemberID="firstResponder"/>
@@ -176,7 +177,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bKY-74-iUz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1299" y="808"/>
+            <point key="canvasLocation" x="1641" y="201"/>
         </scene>
         <!--Master-->
         <scene sceneID="VgW-fR-Quf">
@@ -242,7 +243,7 @@
                             <outlet property="delegate" destination="pGg-6v-bdr" id="Y6K-Cp-Qkv"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="课本" id="tQt-TN-PWz">
+                    <navigationItem key="navigationItem" title="先挑选课本 ➡️" id="tQt-TN-PWz">
                         <barButtonItem key="leftBarButtonItem" id="YXf-VB-Lvx">
                             <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="B99-E8-9Qx">
                                 <rect key="frame" x="16" y="7" width="44" height="30"/>
@@ -286,7 +287,51 @@
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NWW-Xc-REP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1348" y="64"/>
+            <point key="canvasLocation" x="1482" y="-423"/>
+        </scene>
+        <!--Web View Controller-->
+        <scene sceneID="ZWr-NZ-XT2">
+            <objects>
+                <viewController id="TfZ-3K-bns" customClass="WebViewController" customModule="textbook" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hcL-pJ-7B8"/>
+                        <viewControllerLayoutGuide type="bottom" id="Mjx-wI-RWA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="D9f-R1-G6m">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XXd-wW-Pn0">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="delegate" destination="TfZ-3K-bns" id="Ms9-Zj-5a6"/>
+                                </connections>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="XXd-wW-Pn0" secondAttribute="bottom" id="8pC-Ev-hLl"/>
+                            <constraint firstItem="XXd-wW-Pn0" firstAttribute="top" secondItem="D9f-R1-G6m" secondAttribute="top" id="Bha-67-IGo"/>
+                            <constraint firstAttribute="trailing" secondItem="XXd-wW-Pn0" secondAttribute="trailing" id="I5g-ld-DDt"/>
+                            <constraint firstItem="XXd-wW-Pn0" firstAttribute="leading" secondItem="D9f-R1-G6m" secondAttribute="leading" id="KeS-ES-MsR"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="tgQ-u8-zcf">
+                        <nil key="title"/>
+                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="gAN-IG-Yf5">
+                            <connections>
+                                <action selector="refreshWebView:" destination="TfZ-3K-bns" id="qCU-hf-CTx"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="webView" destination="XXd-wW-Pn0" id="SKN-v7-fOt"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G87-pc-7gz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="663" y="576"/>
         </scene>
         <!--Image View Controller-->
         <scene sceneID="XZy-Xn-WIJ">
@@ -341,7 +386,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oq8-FU-JYv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2072" y="64"/>
+            <point key="canvasLocation" x="2362" y="-238"/>
         </scene>
     </scenes>
 </document>

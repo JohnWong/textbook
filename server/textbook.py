@@ -41,6 +41,8 @@ def fetchbook(indexurl, filename, booktitle):
     if os.path.isfile(filename):
         return
     lockfile = filename + ".lock"
+    if os.path.isfile(lockfile):
+        return
     with open(lockfile, "w") as f:
         f.write("")
     doc = requesturl(indexurl).recs.documents
