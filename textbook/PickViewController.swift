@@ -33,7 +33,7 @@ class PickViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.segmentedControl.hidden = true
-        self.segmentedControl.addTarget(self.collectionView, action: Selector("reloadData"), forControlEvents: UIControlEvents.ValueChanged)
+        self.segmentedControl.addTarget(self, action: Selector("onSegmentedControlChanged"), forControlEvents: UIControlEvents.ValueChanged)
         self.reloadData()
         
     }
@@ -66,6 +66,11 @@ class PickViewController: UICollectionViewController {
             segmentedControl.insertSegmentWithTitle(category.name, atIndex: segmentedControl.numberOfSegments, animated: true)
         }        
         segmentedControl.selectedSegmentIndex = 0
+        self.collectionView?.reloadData()
+    }
+    
+    func onSegmentedControlChanged() {
+        self.collectionView?.contentOffset = CGPoint(x: 0, y: 0)
         self.collectionView?.reloadData()
     }
 

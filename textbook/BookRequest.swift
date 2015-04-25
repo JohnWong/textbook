@@ -13,6 +13,6 @@ class BookRequest: Request {
     var bookPath: String = ""
     
     override func urlPath() -> String {
-        return AppConfiguration.URLs.host + "/" + bookPath
+        return AppConfiguration.URLs.host + bookPath
     }
 }
