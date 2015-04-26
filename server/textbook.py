@@ -30,6 +30,7 @@ def fetchimg(indexurl, pageurl):
 
 
 def requesturl(url):
+    print(url)
     request = urllib2.Request(url)
     response = urllib2.urlopen(request)
     result = response.read().decode("gb18030")
@@ -86,7 +87,6 @@ def fetchbook(indexurl, filename, booktitle):
             "link": link,
             "page": page
         })
-        # print("%s, %s" % (title, page))
         pass
 
     jsonstr = json.dumps({
@@ -100,6 +100,20 @@ def fetchbook(indexurl, filename, booktitle):
 
 
 def parseTable(listurl):
+    # 部分页面没有课本列表的按钮，需要手动拼接
+    if listurl.find("sxpd/js/tbjx/jsys") >= 0 or \
+            listurl.find("ce/czyy/tbjxzy") >= 0 or\
+            listurl.find("tiyu/jszx123/tbjxzy123") >= 0 or \
+            listurl.find("sxzz/js/tbjx/kb/jsys") >= 0 or \
+            listurl.find("gzhx/gzhxjs/0pl/kb/dzkb") >= 0 or \
+            listurl.find("gzhx/gzhxjs/0pl/kb/jsys") >= 0 or \
+            listurl.find("sxzz/js/tbjx/kb/jsys") >= 0 or \
+            listurl.find("gzls/js/tbjx/kb/jsys") >= 0:
+        listurl = listurl[:listurl[:-1].rindex("/") + 1]
+    elif listurl.find("czls/js/tbjx") >= 0:
+        listurl = "http://www.pep.com.cn/czls/js/tbjx/jsys/"
+        pass
+
     doc = requesturl(listurl)
     ret = []
     for node in doc.find("table").find_all("td"):
@@ -139,29 +153,45 @@ def fetchsubject(url, title):
     for i in range(len(listurls)):
         listurl = url + listurls[i]
         rows = []
+        # 小学英语课本列表两层嵌套
         if listurl.find("xe/jszx/tbjxzy") < 0:
             sublisturls = [listurl]
+            subheaders = [headers[i]]
         else:
-            sublisturls = map(lambda (a, b, c): b, parseTable(listurl))
+            subitems = parseTable(listurl)
+            sublisturls = map(lambda (a, b, c): b, subitems)
+            subheaders = map(lambda (a, b, c): headers[i] + "-" + a, subitems)
             pass
 
-        for sublisturl in sublisturls:
+        for j in range(len(sublisturls)):
+            sublisturl = sublisturls[j]
+
             for (booktitle, href, img) in parseTable(sublisturl):
-                link = href + "index_2152.xml"
+                if href.find("sxpd/js/tbjx/jsys/") >= 0 or \
+                        href.find("czls/js/tbjx/jsys") >= 0 or \
+                        href.find("sxzz/js/tbjx/kb/jsys") >= 0 or \
+                        href.find("gzls/js/tbjx/kb/jsys") >= 0:
+                    link = href + "index_2151.xml"
+                else:
+                    link = href + "index_2152.xml"
+                    pass
                 # fetch book json
                 prefix = "www.pep.com.cn/"
                 filename = re.search(prefix + ".*", href).group()[len(prefix):-1].replace("/", "-") + ".json"
+                booktitle = booktitle.replace("《品德与生活》", "品生").replace("《品德与社会》", "品社").replace("新疆教材语文一年级上册教师用书", "新疆一年级上册")
                 fetchbook(link, filename, booktitle)
                 rows.append({
-                    "title": booktitle.replace("《品德与生活》", "品生").replace("《品德与社会》", "品社"),
+                    "title": booktitle,
                     "link": filename,
                     "img": img
                 })
                 pass
-            sections.append({
-                "header": title + headers[i],
-                "rows": rows
-            })
+            if len(rows) >= 0: # TODO > 0
+                sections.append({
+                    "header": title + "-" + subheaders[j],
+                    "rows": rows
+                })
+                pass
             pass
         pass
     return sections

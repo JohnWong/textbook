@@ -10,7 +10,8 @@ import Foundation
 
 class AppConfiguration {
     struct URLs {
-        static let host = "http://dn-johnstatic.qbox.me/textbook/"
+        static let host = "https://dn-johnstatic.qbox.me/textbook/"
+//        static let host = "http://localhost:7000/"
         static let index = host + "index.json"
     }
     
