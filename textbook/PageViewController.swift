@@ -23,11 +23,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     func configureView() {
         // Update the user interface for the detail item.
         let detailItem = pages[index]
-        title = detailItem.title
-            .stringByReplacingOccurrencesOfString("<b>", withString: "")
-            .stringByReplacingOccurrencesOfString("</b>", withString: "")
-            .stringByReplacingOccurrencesOfString("<strong>", withString: "")
-            .stringByReplacingOccurrencesOfString("</strong>", withString: "")
+        title = Utility.cleanString(detailItem.title)
     }
     
     override func viewDidLoad() {

@@ -77,7 +77,9 @@ def fetchbook(indexurl, filename, booktitle):
         if link.find("../../../../..") >= 0:
             continue
         link = fetchimg(indexurl, link)
-
+        if link.find("../../../../..") >= 0:
+            continue
+        
         backward = 1 if len(titlesplit) == 1 else 2
         print(title)
         if re.match("^\d+$", title):

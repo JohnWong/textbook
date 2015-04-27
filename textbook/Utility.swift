@@ -17,6 +17,8 @@ class Utility {
             .stringByReplacingOccurrencesOfString("<strong>", withString: "")
             .stringByReplacingOccurrencesOfString("</strong>", withString: "")
             .stringByReplacingOccurrencesOfString("</srong>", withString: "")
+            .stringByReplacingOccurrencesOfString("<p>", withString: "")
+            .stringByReplacingOccurrencesOfString("</p>", withString: "")
     }
    
     class func appVersion() -> String {
