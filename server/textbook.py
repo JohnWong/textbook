@@ -16,7 +16,10 @@ htmlparser = HTMLParser.HTMLParser()
 
 def replaceurl(url, subfix):
     index = url.rindex("/")
-    return url[:index] + subfix[1:]
+    if subfix.startswith("/"):
+        return "http://www.pep.com.cn" + subfix
+    else:
+        return url[:index] + subfix[1:]
 
 
 def fetchimg(indexurl, pageurl):
@@ -71,7 +74,7 @@ def fetchbook(indexurl, filename, booktitle):
             pass
         link = node.findChild("l").get_text()
         # see http://www.pep.com.cn/xe/jszx/tbjxzy/ltyy/ltw/dzkb/200703/t20070314_334538.htm
-        if link.find("../../../../../../../") >= 0:
+        if link.find("../../../../..") >= 0:
             continue
         link = fetchimg(indexurl, link)
 
