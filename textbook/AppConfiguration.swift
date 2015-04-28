@@ -15,6 +15,8 @@ class AppConfiguration {
         static let index = host + "index.json"
     }
     
+    static let Debug = NSBundle.mainBundle().objectForInfoDictionaryKey("Debug") as? String == "YES"
+    
     struct Notifications {
         static let BookUpdate = "BookUpdate"
         static let CacheClear = "CacheClear"
