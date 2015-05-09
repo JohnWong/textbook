@@ -49,6 +49,9 @@ class SettingViewController: UIViewController, UITableViewDataSource, UITableVie
         cell.selectedBackgroundView = UIView()
         cell.imageView?.image = UIImage(named: icons[indexPath.row])
         cell.textLabel?.text = titles[indexPath.row]
+        cell.textLabel?.textColor = UIColor.whiteColor()
+        cell.contentView.backgroundColor = UIColor.clearColor()
+        cell.backgroundColor = UIColor.clearColor()
         return cell
     }
     
