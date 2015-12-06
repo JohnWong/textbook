@@ -88,10 +88,10 @@ class MasterViewController: UITableViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == StoryBoard.Segues.showDetail {
-            if let indexPath = tableView.indexPathForSelectedRow() {
+            if let indexPath = tableView.indexPathForSelectedRow {
                 let indexItem = bookItem.indexes[indexPath.row]
                 var index = 0
-                for (key, value) in enumerate(bookItem.pages) {
+                for (key, value) in bookItem.pages.enumerate() {
                     if value.link == indexItem.link {
                         index = key
                         break
@@ -126,7 +126,7 @@ class MasterViewController: UITableViewController {
         if indexItem.title != title {
             cellIdentifier = StoryBoard.Cells.cellBold
         }
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) 
         cell.textLabel!.text = title
         cell.detailTextLabel!.text = indexItem.page == 0 ? "" : "\(indexItem.page)"
         if indexItem.link.isEmpty {

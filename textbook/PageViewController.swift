@@ -31,7 +31,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         dataSource = self
         delegate = self
         configureView()
-        for i in 0...1 {
+        for _ in 0...1 {
             let controller: AnyObject! = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("Page")
             if let controller = controller as? ImageViewController {
                 tempControllers.append(controller)
@@ -67,13 +67,13 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         return controller
     }
     
-    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [AnyObject]) {
+    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
         
         pageAnimationFinished = false
     }
     
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [AnyObject], transitionCompleted completed: Bool) {
-        if let controller = pageViewController.viewControllers[0] as? ImageViewController {
+    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        if let controller = pageViewController.viewControllers![0] as? ImageViewController {
             index = controller.index
         }
         configureView()

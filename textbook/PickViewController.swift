@@ -100,8 +100,8 @@ class PickViewController: UICollectionViewController {
     }
     
     override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: StoryBoard.SectionHeader.Identifier, forIndexPath: indexPath) as! UICollectionReusableView
-        var label = header.viewWithTag(StoryBoard.SectionHeader.LabelTag) as? UILabel
+        let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: StoryBoard.SectionHeader.Identifier, forIndexPath: indexPath) 
+        let label = header.viewWithTag(StoryBoard.SectionHeader.LabelTag) as? UILabel
         label?.text = categoryItems[segmentedControl.selectedSegmentIndex].items[indexPath.section].header
         return header
     }

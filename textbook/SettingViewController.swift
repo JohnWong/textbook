@@ -45,7 +45,7 @@ class SettingViewController: UIViewController, UITableViewDataSource, UITableVie
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(StoryBoard.Cells.menuCell, forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(StoryBoard.Cells.menuCell, forIndexPath: indexPath) 
         cell.selectedBackgroundView = UIView()
         cell.imageView?.image = UIImage(named: icons[indexPath.row])
         cell.textLabel?.text = titles[indexPath.row]

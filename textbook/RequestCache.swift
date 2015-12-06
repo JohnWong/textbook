@@ -12,53 +12,75 @@ class RequestCache: NSObject {
     
     static var cachePath: String = {
         var paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true);
-        var cacheDirectory = paths[0] as! String
-        cacheDirectory = cacheDirectory.stringByAppendingPathComponent("RequestCache")
+        var cacheDirectory = paths[0] 
+        cacheDirectory = (cacheDirectory as NSString).stringByAppendingPathComponent("RequestCache")
         var fileManager = NSFileManager.defaultManager()
         if !fileManager.fileExistsAtPath(cacheDirectory) {
             var error: NSError?
-            if fileManager.createDirectoryAtPath(cacheDirectory, withIntermediateDirectories: true, attributes: nil, error: &error) {
+            do {
+                try fileManager.createDirectoryAtPath(cacheDirectory, withIntermediateDirectories: true, attributes: nil)
                 if let error = error {
-                    println("write failure: \(error.localizedDescription)")
+                    print("write failure: \(error.localizedDescription)")
                 }
+            } catch var error1 as NSError {
+                error = error1
+            } catch {
+                fatalError()
             }
         }
         return cacheDirectory
     }()
     
     class func cacheResponse(response :String, forPath path: String) {
-        var pathHash = cachedFileNameForKey(path)
-        var filePath = self.cachePath.stringByAppendingPathComponent(pathHash);
+        let pathHash = cachedFileNameForKey(path)
+        let filePath = (self.cachePath as NSString).stringByAppendingPathComponent(pathHash);
         var writeError: NSError?
-        let written = response.writeToFile(filePath, atomically: true, encoding: NSUTF8StringEncoding, error: &writeError)
+        let written: Bool
+        do {
+            try response.writeToFile(filePath, atomically: true, encoding: NSUTF8StringEncoding)
+            written = true
+        } catch let error as NSError {
+            writeError = error
+            written = false
+        }
         if !written {
             if let error = writeError {
-                println("write failure: \(error.localizedDescription)")
+                print("write failure: \(error.localizedDescription)")
             }
         }
     }
     
     class func getCachedResponseForPath(path: String) -> String? {
-        var pathHash = cachedFileNameForKey(path)
-        var filePath = self.cachePath.stringByAppendingPathComponent(pathHash);
+        let pathHash = cachedFileNameForKey(path)
+        let filePath = (self.cachePath as NSString).stringByAppendingPathComponent(pathHash);
         var readError: NSError?
-        var str = NSString(contentsOfFile: filePath, encoding: NSUTF8StringEncoding, error: &readError)
+        var str: NSString?
+        do {
+            str = try NSString(contentsOfFile: filePath, encoding: NSUTF8StringEncoding)
+        } catch let error as NSError {
+            readError = error
+            str = nil
+        }
         if let error = readError {
-            println("read failure: \(error.localizedDescription)")
+            print("read failure: \(error.localizedDescription)")
         }
         return str as? String
     }
     
     class func clearCachedResponse() {
-        var fileManager = NSFileManager.defaultManager()
-        var cacheList = fileManager.subpathsAtPath(cachePath)
+        let fileManager = NSFileManager.defaultManager()
+        let cacheList = fileManager.subpathsAtPath(cachePath)
         if let cacheList = cacheList {
             for cache in cacheList {
                 if let cache = cache as? String {
                     var error: NSError?
-                    fileManager.removeItemAtPath(self.cachePath.stringByAppendingPathComponent(cache), error: &error)
+                    do {
+                        try fileManager.removeItemAtPath((self.cachePath as NSString).stringByAppendingPathComponent(cache))
+                    } catch let error1 as NSError {
+                        error = error1
+                    }
                     if let error = error {
-                        println("clear failure: \(error.localizedDescription) \(cache)")
+                        print("clear failure: \(error.localizedDescription) \(cache)")
                     }
                 }
             }
@@ -71,7 +93,7 @@ class RequestCache: NSObject {
         let digestLen = Int(CC_MD5_DIGEST_LENGTH)
         let result = UnsafeMutablePointer<CUnsignedChar>.alloc(digestLen)
         CC_MD5(str!, strLen, result)
-        var hash = NSMutableString()
+        let hash = NSMutableString()
         for i in 0..<digestLen {
             hash.appendFormat("%02x", result[i])
         }

@@ -27,7 +27,7 @@ class RootViewController: RESideMenu {
     }
 
     override func awakeFromNib() {
-        var storyboard: UIStoryboard = self.storyboard!
+        let storyboard: UIStoryboard = self.storyboard!
         
         self.menuPreferredStatusBarStyle = UIStatusBarStyle.LightContent
         self.contentViewShadowColor = UIColor.blackColor()
@@ -37,8 +37,8 @@ class RootViewController: RESideMenu {
         self.contentViewShadowEnabled = true;
     
         
-        self.contentViewController = storyboard.instantiateViewControllerWithIdentifier(StoryBoard.ControllerIdentifiers.contentViewController) as! UIViewController
-        self.leftMenuViewController = storyboard.instantiateViewControllerWithIdentifier(StoryBoard.ControllerIdentifiers.settingViewController) as! UIViewController
+        self.contentViewController = storyboard.instantiateViewControllerWithIdentifier(StoryBoard.ControllerIdentifiers.contentViewController) 
+        self.leftMenuViewController = storyboard.instantiateViewControllerWithIdentifier(StoryBoard.ControllerIdentifiers.settingViewController) 
         
         self.backgroundImage = UIImage(named: "Stars");
     }

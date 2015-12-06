@@ -16,11 +16,10 @@ class Item: NSObject, NSCoding {
     }
     
     func encodeWithCoder(aCoder: NSCoder) {
-        let x = reflect(self)
-        for i in 0 ..< x.count {
-            let item = x[i]
-            let key = item.0
-            let value = item.1.value
+        let x = Mirror(reflecting: self)
+        for item: (label: String?, value: Any) in x.children {
+            let key = item.label!
+            let value = item.value
             if key == "super" {
                 continue
             }
@@ -41,35 +40,34 @@ class Item: NSObject, NSCoding {
                 aCoder.encodeObject(someObject, forKey: key)
                 break
             default:
-                println("something else \(key)")
+                print("something else \(key)")
             }
         }
     }
     
-    required convenience init(coder aDecoder: NSCoder) {
+    required convenience init?(coder aDecoder: NSCoder) {
         self.init()
-        let x = reflect(self)
-        for i in 0 ..< x.count {
-            let item = x[i]
-            let key = item.0
-            let value = item.1.value
+        let x = Mirror(reflecting: self)
+        for item: (label: String?, value: Any) in x.children {
+            let key = item.label!
+            let value = item.value
             var newValue: AnyObject?
             if key == "super" {
                 continue
             }
             switch value {
-            case let someBool as Bool:
+            case _ as Bool:
                 newValue = aDecoder.decodeBoolForKey(key)
-            case let someInt as Int:
+            case _ as Int:
                 newValue = aDecoder.decodeIntegerForKey(key)
-            case let someFloat as Float:
+            case _ as Float:
                 newValue = aDecoder.decodeFloatForKey(key)
-            case let someDouble as Double:
+            case _ as Double:
                 newValue = aDecoder.decodeDoubleForKey(key)
-            case let someObject as AnyObject:
+            case _ as AnyObject:
                 newValue = aDecoder.decodeObjectForKey(key)
             default:
-                println("something else \(key)")
+                print("something else \(key)")
             }
             if let newValue: AnyObject = newValue {
                 self.setValue(newValue, forKey: key)
@@ -80,10 +78,10 @@ class Item: NSObject, NSCoding {
     override var description: String {
         get {
             var desc = self.classForCoder.description() + " {\n"
-            let x = reflect(self)
-            for i in 0 ..< x.count {
-                let key = x[i].0
-                let value = x[i].1.value
+            let x = Mirror(reflecting: self)
+            for item: (label: String?, value: Any) in x.children {
+                let key = item.label!
+                let value = item.value
                 desc += "\(key): \(value)\n"
             }
             return desc + "}"

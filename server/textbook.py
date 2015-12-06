@@ -1,3 +1,4 @@
+#! /usr/bin/env python
 # -*- coding: utf-8 -*-
 import urllib2
 import re
@@ -32,12 +33,12 @@ def fetchimg(indexurl, pageurl):
     return ""
 
 
-def requesturl(url):
-    print(url)
+def requesturl(url, encoding="gb18030"):
+    print(url, encoding)
     request = urllib2.Request(url)
     response = urllib2.urlopen(request)
-    result = response.read().decode("gb18030")
-    return BeautifulSoup(result)
+    result = response.read().decode(encoding)
+    return BeautifulSoup(result, "html.parser")
 
 
 def fetchbook(indexurl, filename, booktitle):
@@ -203,20 +204,20 @@ def fetchsubject(url, title):
 
 
 def fetchindex(filename):
-    url = "http://www.pep.com.cn/"
-    doc = requesturl(url)
+    url = "http://www1.pep.com.cn/rjwgw/"
+    doc = requesturl(url, encoding="utf-8")
     cates = []
-    xkdh = doc.find(id="xkdh")
-    for node in xkdh.find_all("td"):
-        catdiv = node.find(class_="darkgreen")
+    xkdh = doc.find(class_="main1_bg")
+    for node in xkdh.find_all("li"):
+        catdiv = node.find("h2")
         if not catdiv:
             continue
-        catname = node.find(class_="darkgreen").get_text().replace(" ", "")
-        if catname == "相关教育":
+        catname = catdiv.get_text().replace(" ", "")
+        if catname == "相关教育" or catname == "职业教育":
             continue
         subjects = []
         for subject in node.find_all("a"):
-            link = url + subject.get("href")[2:]
+            link = subject.get("href");
             title = subject.get_text()
             for sub in fetchsubject(link, title):
                 subjects.append(sub)

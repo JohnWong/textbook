@@ -64,7 +64,13 @@ class Request {
     
     func parse(body: String, withCompletion completion:(dict: NSDictionary?, error: NSError?) -> Void) {
         var error: NSError?
-        var jsonObject: AnyObject? = NSJSONSerialization.JSONObjectWithData(body.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, options: NSJSONReadingOptions(), error: &error)
+        var jsonObject: AnyObject?
+        do {
+            jsonObject = try NSJSONSerialization.JSONObjectWithData(body.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, options: NSJSONReadingOptions())
+        } catch let error1 as NSError {
+            error = error1
+            jsonObject = nil
+        }
         if let dict = jsonObject as? NSDictionary {
             completion(dict: dict, error: nil)
         } else {

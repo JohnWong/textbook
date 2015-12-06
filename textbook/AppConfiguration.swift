@@ -23,7 +23,6 @@ class AppConfiguration {
     }
     
     class func showError(message: String, subtitle: String?) {
-        var rootViewController:UIViewController = UIApplication.sharedApplication().keyWindow!.rootViewController!
         TSMessage.showNotificationInViewController(
             TSMessage.defaultViewController(),
             title: message,
@@ -39,7 +38,6 @@ class AppConfiguration {
     }
     
     class func showSuccess(message: String, subtitle: String?) {
-        var rootViewController:UIViewController = UIApplication.sharedApplication().keyWindow!.rootViewController!
         TSMessage.showNotificationInViewController(
             TSMessage.defaultViewController(),
             title: message,

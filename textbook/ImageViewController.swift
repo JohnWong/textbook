@@ -38,8 +38,8 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func initGestures() {
-        var singleTap = UITapGestureRecognizer(target: self, action: Selector("didSingleTap"))
-        var doubleTap = UITapGestureRecognizer(target: self, action: Selector("didDoubleTap"))
+        let singleTap = UITapGestureRecognizer(target: self, action: Selector("didSingleTap"))
+        let doubleTap = UITapGestureRecognizer(target: self, action: Selector("didDoubleTap"))
         doubleTap.numberOfTapsRequired = 2
         singleTap.requireGestureRecognizerToFail(doubleTap)
         self.view.addGestureRecognizer(singleTap)
@@ -47,7 +47,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func setImagePathIfExists(url: String) {
-        println("\(url)")
+        print("\(url)")
         if let scrollView = scrollView {
             scrollView.contentOffset = CGPoint(x: 0, y: 0)
         }
