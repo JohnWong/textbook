@@ -36,34 +36,34 @@ class SettingViewController: UIViewController, UITableViewDataSource, UITableVie
     
     // MARK: - Table view data source
 
-    func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.icons.count
     }
 
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier(StoryBoard.Cells.menuCell, forIndexPath: indexPath) 
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: StoryBoard.Cells.menuCell, for: indexPath) 
         cell.selectedBackgroundView = UIView()
-        cell.imageView?.image = UIImage(named: icons[indexPath.row])
-        cell.textLabel?.text = titles[indexPath.row]
-        cell.textLabel?.textColor = UIColor.whiteColor()
-        cell.contentView.backgroundColor = UIColor.clearColor()
-        cell.backgroundColor = UIColor.clearColor()
+        cell.imageView?.image = UIImage(named: icons[(indexPath as NSIndexPath).row])
+        cell.textLabel?.text = titles[(indexPath as NSIndexPath).row]
+        cell.textLabel?.textColor = UIColor.white
+        cell.contentView.backgroundColor = UIColor.clear
+        cell.backgroundColor = UIColor.clear
         return cell
     }
     
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 54
     }
     
     // MARK: - Table view delegate
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.sideMenuViewController.hideMenuViewController()
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.sideMenuViewController.hideViewController()
         let controller: NavigationViewController = self.sideMenuViewController.contentViewController as! NavigationViewController
-        switch icons[indexPath.row] {
+        switch icons[(indexPath as NSIndexPath).row] {
         case SettingViewController.IconClear:
             clearCache()
             return
@@ -76,15 +76,15 @@ class SettingViewController: UIViewController, UITableViewDataSource, UITableVie
         default:
             break
         }
-        controller.performSegueWithIdentifier("pushWebView", sender: self)
+        controller.performSegue(withIdentifier: "pushWebView", sender: self)
     }
     
     // MARK: - Action
     func clearCache() {
         RequestCache.clearCachedResponse()
-        SDImageCache.sharedImageCache().clearDisk()
-        self.sideMenuViewController.hideMenuViewController()
-        NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: AppConfiguration.Notifications.CacheClear, object: nil))
+        SDImageCache.shared().clearDisk()
+        self.sideMenuViewController.hideViewController()
+        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: AppConfiguration.Notifications.CacheClear), object: nil))
     }
 
 }

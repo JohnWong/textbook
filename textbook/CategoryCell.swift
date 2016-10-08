@@ -13,8 +13,8 @@ class CategoryCell: UICollectionViewCell {
     @IBOutlet weak var image: UIImageView!
     @IBOutlet weak var label: UILabel!
     
-    func setItem(item: CollectItem) {
-        image.setImageWithURL(NSURL(string: item.img), usingActivityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    func setItem(_ item: CollectItem) {
+        image.setImageWith(URL(string: item.img), usingActivityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         label.text = item.title
     }
 }

@@ -24,23 +24,23 @@ class WebViewController: UIViewController, UIWebViewDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController!.cancelSGProgress()
     }
     
-    @IBAction func refreshWebView(sender: AnyObject?) {
+    @IBAction func refreshWebView(_ sender: AnyObject?) {
         self.webView.stopLoading()
         self.navigationItem.title = "加载中...";
-        self.navigationController?.showSGProgressWithDuration(5.0)
-        let url = NSURL(string: urlPath!)
-        self.webView.loadRequest(NSURLRequest(URL: url!))
+        self.navigationController?.showSGProgress(withDuration: 5.0)
+        let url = URL(string: urlPath!)
+        self.webView.loadRequest(URLRequest(url: url!))
     }
     
     // MARK: web view delegate
     
-    func webViewDidFinishLoad(webVIew: UIWebView) {
-    self.navigationItem.title = webView.stringByEvaluatingJavaScriptFromString("document.title")
+    func webViewDidFinishLoad(_ webVIew: UIWebView) {
+    self.navigationItem.title = webView.stringByEvaluatingJavaScript(from: "document.title")
         self.navigationController!.finishSGProgress()
     }
 

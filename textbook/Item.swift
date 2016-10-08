@@ -15,7 +15,7 @@ class Item: NSObject, NSCoding {
         case highPriority = 3
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
+    func encode(with aCoder: NSCoder) {
         let x = Mirror(reflecting: self)
         for item: (label: String?, value: Any) in x.children {
             let key = item.label!
@@ -25,19 +25,19 @@ class Item: NSObject, NSCoding {
             }
             switch value {
             case let someBool as Bool:
-                aCoder.encodeBool(someBool, forKey: key)
+                aCoder.encode(someBool, forKey: key)
                 break
             case let someInt as Int:
-                aCoder.encodeInteger(someInt, forKey: key)
+                aCoder.encode(someInt, forKey: key)
                 break
             case let someFloat as Float:
-                aCoder.encodeFloat(someFloat, forKey: key)
+                aCoder.encode(someFloat, forKey: key)
                 break
             case let someDouble as Double:
-                aCoder.encodeDouble(someDouble, forKey: key)
+                aCoder.encode(someDouble, forKey: key)
                 break
             case let someObject as AnyObject:
-                aCoder.encodeObject(someObject, forKey: key)
+                aCoder.encode(someObject, forKey: key)
                 break
             default:
                 print("something else \(key)")
@@ -57,15 +57,15 @@ class Item: NSObject, NSCoding {
             }
             switch value {
             case _ as Bool:
-                newValue = aDecoder.decodeBoolForKey(key)
+                newValue = aDecoder.decodeBool(forKey: key) as AnyObject?
             case _ as Int:
-                newValue = aDecoder.decodeIntegerForKey(key)
+                newValue = aDecoder.decodeInteger(forKey: key) as AnyObject?
             case _ as Float:
-                newValue = aDecoder.decodeFloatForKey(key)
+                newValue = aDecoder.decodeFloat(forKey: key) as AnyObject?
             case _ as Double:
-                newValue = aDecoder.decodeDoubleForKey(key)
+                newValue = aDecoder.decodeDouble(forKey: key) as AnyObject?
             case _ as AnyObject:
-                newValue = aDecoder.decodeObjectForKey(key)
+                newValue = aDecoder.decodeObject(forKey: key) as AnyObject?
             default:
                 print("something else \(key)")
             }

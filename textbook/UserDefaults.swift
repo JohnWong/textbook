@@ -14,20 +14,20 @@ class UserDefaults {
         static let selectedBook = "SelectedBook"
     }
     
-    class func setObject(value: AnyObject?, forKey key: String) {
+    class func setObject(_ value: AnyObject?, forKey key: String) {
         if let value: AnyObject = value {
-            let userDefaults = NSUserDefaults.standardUserDefaults()
-            let archivedObject = NSKeyedArchiver.archivedDataWithRootObject(value)
-            userDefaults.setObject(archivedObject, forKey: key)
+            let userDefaults = Foundation.UserDefaults.standard
+            let archivedObject = NSKeyedArchiver.archivedData(withRootObject: value)
+            userDefaults.set(archivedObject, forKey: key)
             userDefaults.synchronize()
         }
     }
     
-    class func objectForKey(key: String) -> AnyObject? {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        let object: AnyObject? =  userDefaults.objectForKey(key)
-        if let object = object as? NSData {
-            let originObj: AnyObject? = NSKeyedUnarchiver.unarchiveObjectWithData(object)
+    class func objectForKey(_ key: String) -> AnyObject? {
+        let userDefaults = Foundation.UserDefaults.standard
+        let object: AnyObject? =  userDefaults.object(forKey: key) as AnyObject?
+        if let object = object as? Data {
+            let originObj: AnyObject? = NSKeyedUnarchiver.unarchiveObject(with: object) as AnyObject?
             return originObj
         }
         return nil

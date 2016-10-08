@@ -87,7 +87,7 @@ class CategoryItem {
         self.init(name: name, items: subjectItems)
     }
     
-    class func arrayWithDict(dict: NSDictionary) -> Array<CategoryItem> {
+    class func arrayWithDict(_ dict: NSDictionary) -> Array<CategoryItem> {
         let categoryArray: NSArray? = dict["cates"] as? NSArray
         var categoryItems = Array<CategoryItem>()
         if let categoryArray = categoryArray {

@@ -15,40 +15,40 @@ class AppConfiguration {
         static let index = host + "index.json"
     }
     
-    static let Debug = NSBundle.mainBundle().objectForInfoDictionaryKey("Debug") as? String == "YES"
+    static let Debug = Bundle.main.object(forInfoDictionaryKey: "Debug") as? String == "YES"
     
     struct Notifications {
         static let BookUpdate = "BookUpdate"
         static let CacheClear = "CacheClear"
     }
     
-    class func showError(message: String, subtitle: String?) {
-        TSMessage.showNotificationInViewController(
-            TSMessage.defaultViewController(),
+    class func showError(_ message: String, subtitle: String?) {
+        TSMessage.showNotification(
+            in: TSMessage.defaultViewController(),
             title: message,
             subtitle: subtitle,
             image: nil,
-            type: TSMessageNotificationType.Error,
+            type: TSMessageNotificationType.error,
             duration: 1,
             callback: nil,
             buttonTitle: nil,
             buttonCallback: nil,
-            atPosition: TSMessageNotificationPosition.NavBarOverlay,
+            at: TSMessageNotificationPosition.navBarOverlay,
             canBeDismissedByUser: true)
     }
     
-    class func showSuccess(message: String, subtitle: String?) {
-        TSMessage.showNotificationInViewController(
-            TSMessage.defaultViewController(),
+    class func showSuccess(_ message: String, subtitle: String?) {
+        TSMessage.showNotification(
+            in: TSMessage.defaultViewController(),
             title: message,
             subtitle: subtitle,
             image: nil,
-            type: TSMessageNotificationType.Success,
+            type: TSMessageNotificationType.success,
             duration: 1,
             callback: nil,
             buttonTitle: nil,
             buttonCallback: nil,
-            atPosition: TSMessageNotificationPosition.NavBarOverlay,
+            at: TSMessageNotificationPosition.navBarOverlay,
             canBeDismissedByUser: true)
     }
     

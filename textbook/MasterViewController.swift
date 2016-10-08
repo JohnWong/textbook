@@ -13,11 +13,11 @@ class MasterViewController: UITableViewController {
     var bookRequest = BookRequest()
     var bookItem = BookItem()
     
-    @IBAction func clearCache(sender: UIButton) {
+    @IBAction func clearCache(_ sender: UIButton) {
         RequestCache.clearCachedResponse()
     }
     
-    @IBAction func showSettings(sender: AnyObject) {
+    @IBAction func showSettings(_ sender: AnyObject) {
         self.sideMenuViewController.presentLeftMenuViewController()
     }
     
@@ -41,17 +41,17 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: UIBarButtonItemStyle.plain, target: nil, action: nil)
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("reload"), name: AppConfiguration.Notifications.BookUpdate, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(MasterViewController.reload), name: NSNotification.Name(rawValue: AppConfiguration.Notifications.BookUpdate), object: nil)
         self.reload()
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.cancelSGProgress()
     }
@@ -75,7 +75,7 @@ class MasterViewController: UITableViewController {
                     self.navigationController?.setSGProgressPercentage(percent, andTitle: "加载中...")
                 })
         } else {
-            self.performSegueWithIdentifier(StoryBoard.Segues.pickBook, sender: self)
+            self.performSegue(withIdentifier: StoryBoard.Segues.pickBook, sender: self)
         }
     }
 
@@ -86,55 +86,55 @@ class MasterViewController: UITableViewController {
 
     // MARK: - Segues
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == StoryBoard.Segues.showDetail {
             if let indexPath = tableView.indexPathForSelectedRow {
-                let indexItem = bookItem.indexes[indexPath.row]
+                let indexItem = bookItem.indexes[(indexPath as NSIndexPath).row]
                 var index = 0
-                for (key, value) in bookItem.pages.enumerate() {
+                for (key, value) in bookItem.pages.enumerated() {
                     if value.link == indexItem.link {
                         index = key
                         break
                     }
                 }
-                (segue.destinationViewController as! PageViewController).setPages(bookItem.pages, atIndex: index)
+                (segue.destination as! PageViewController).setPages(bookItem.pages, atIndex: index)
             }
         }
     }
 
     // MARK: - Table View
 
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let cell = tableView.cellForRowAtIndexPath(indexPath)!
-        if cell.selectionStyle != UITableViewCellSelectionStyle.None {
-            performSegueWithIdentifier(StoryBoard.Segues.showDetail, sender: self)
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let cell = tableView.cellForRow(at: indexPath)!
+        if cell.selectionStyle != UITableViewCellSelectionStyle.none {
+            performSegue(withIdentifier: StoryBoard.Segues.showDetail, sender: self)
         }
     }
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return bookItem.indexes.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let indexItem = bookItem.indexes[indexPath.row]
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let indexItem = bookItem.indexes[(indexPath as NSIndexPath).row]
         let title = Utility.cleanString(indexItem.title)
         var cellIdentifier = StoryBoard.Cells.cell
         if indexItem.title != title {
             cellIdentifier = StoryBoard.Cells.cellBold
         }
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) 
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) 
         cell.textLabel!.text = title
         cell.detailTextLabel!.text = indexItem.page == 0 ? "" : "\(indexItem.page)"
         if indexItem.link.isEmpty {
-            cell.selectionStyle = UITableViewCellSelectionStyle.None
-            cell.accessoryType = UITableViewCellAccessoryType.None
+            cell.selectionStyle = UITableViewCellSelectionStyle.none
+            cell.accessoryType = UITableViewCellAccessoryType.none
         } else {
-            cell.selectionStyle = UITableViewCellSelectionStyle.Default
-            cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+            cell.selectionStyle = UITableViewCellSelectionStyle.default
+            cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         }
         return cell
     }

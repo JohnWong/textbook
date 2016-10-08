@@ -20,13 +20,13 @@ class Request {
         return "UTF-8"
     }
     
-    func loadWithCompletion(completion:(dict: NSDictionary?, error: NSError?) -> Void) {
+    func loadWithCompletion(_ completion:@escaping (_ dict: NSDictionary?, _ error: NSError?) -> Void) {
         loadWithCompletion(completion, progress:nil)
     }
     
-    func loadWithCompletion(completion:(dict: NSDictionary?, error: NSError?) -> Void, progress:((percent: Float) -> Void)?) {
-        if urlPath().lengthOfBytesUsingEncoding(NSUTF8StringEncoding) == 0 {
-            completion(dict: nil, error: NSError(domain: "没有URL", code: 1, userInfo: nil));
+    func loadWithCompletion(_ completion:@escaping (_ dict: NSDictionary?, _ error: NSError?) -> Void, progress:((_ percent: Float) -> Void)?) {
+        if urlPath().lengthOfBytes(using: String.Encoding.utf8) == 0 {
+            completion(nil, NSError(domain: "没有URL", code: 1, userInfo: nil));
             return;
         }
         let str = RequestCache.getCachedResponseForPath(urlPath())
@@ -35,46 +35,45 @@ class Request {
         } else {
             NSLog("JWRequest: load \(urlPath())")
             request?.cancel()
-            request = STHTTPRequest(URLString: urlPath())
+            request = STHTTPRequest(urlString: urlPath())
             request?.setValue(encoding(), forKey: "responseStringEncodingName")
             request?.completionBlock = {
-                [unowned self](headers: Dictionary!, body: String!) in
-                NSLog("JWRequest: completion \(headers as NSDictionary) \(body)")
-                RequestCache.cacheResponse(body, forPath: self.urlPath())
-                self.parse(body, withCompletion: completion)
+                [unowned self](headers: Dictionary<AnyHashable, Any>?, body: String?) in
+//                NSLog("JWRequest: completion \(headers as NSDictionary) \(body)")
+                RequestCache.cacheResponse(body!, forPath: self.urlPath())
+                self.parse(body!, withCompletion: completion)
             }
             request?.errorBlock = {
-                [unowned self](error) -> Void in
-                if error.code == 1 {
+                (error) -> Void in
+                let err = error as! NSError
+                if err.code == 1 {
                     return
                 }
-                completion(dict: nil, error: error)
+                completion(nil, error as NSError?)
             }
             request?.downloadProgressBlock = {
-                [unowned self](data, totalBytesReceived, totalBytesExpectedToReceive) -> Void in
+                (data, totalBytesReceived, totalBytesExpectedToReceive) -> Void in
                 if let progress = progress {
                     var percent: Float = 100 * Float(totalBytesReceived)
                     percent = percent / Float(totalBytesExpectedToReceive)
-                    progress(percent: percent);
+                    progress(percent);
                 }
             }
             request?.startAsynchronous()
         }
     }
     
-    func parse(body: String, withCompletion completion:(dict: NSDictionary?, error: NSError?) -> Void) {
-        var error: NSError?
-        var jsonObject: AnyObject?
+    func parse(_ body: String, withCompletion completion:(_ dict: NSDictionary?, _ error: NSError?) -> Void) {
+        var jsonObject: Any?
         do {
-            jsonObject = try NSJSONSerialization.JSONObjectWithData(body.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: false)!, options: NSJSONReadingOptions())
+            jsonObject = try JSONSerialization.jsonObject(with: body.data(using: String.Encoding.utf8, allowLossyConversion: false)!, options: JSONSerialization.ReadingOptions())
         } catch let error1 as NSError {
-            error = error1
             jsonObject = nil
         }
         if let dict = jsonObject as? NSDictionary {
-            completion(dict: dict, error: nil)
+            completion(dict, nil)
         } else {
-            completion(dict: nil, error: NSError(domain: "JSON解析出错", code: 1, userInfo: nil))
+            completion(nil, NSError(domain: "JSON解析出错", code: 1, userInfo: nil))
         }
     }
 }

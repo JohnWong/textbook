@@ -32,13 +32,13 @@ class PickViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.segmentedControl.hidden = true
-        self.segmentedControl.addTarget(self, action: Selector("onSegmentedControlChanged"), forControlEvents: UIControlEvents.ValueChanged)
+        self.segmentedControl.isHidden = true
+        self.segmentedControl.addTarget(self, action: #selector(PickViewController.onSegmentedControlChanged), for: UIControlEvents.valueChanged)
         self.reloadData()
         
     }
     
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.navigationController?.cancelSGProgress()
     }
@@ -61,9 +61,9 @@ class PickViewController: UICollectionViewController {
     
     func reloadViews() {
         segmentedControl.removeAllSegments()
-        segmentedControl.hidden = false
+        segmentedControl.isHidden = false
         for category in categoryItems {
-            segmentedControl.insertSegmentWithTitle(category.name, atIndex: segmentedControl.numberOfSegments, animated: true)
+            segmentedControl.insertSegment(withTitle: category.name, at: segmentedControl.numberOfSegments, animated: true)
         }        
         segmentedControl.selectedSegmentIndex = 0
         self.collectionView?.reloadData()
@@ -81,7 +81,7 @@ class PickViewController: UICollectionViewController {
     
     // MARK: UICollectionViewDataSource
 
-    override func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
+    override func numberOfSections(in collectionView: UICollectionView) -> Int {
         if categoryItems.count > segmentedControl.selectedSegmentIndex {
             return categoryItems[segmentedControl.selectedSegmentIndex].items.count
         } else {
@@ -89,28 +89,28 @@ class PickViewController: UICollectionViewController {
         }
     }
 
-    override func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return categoryItems[segmentedControl.selectedSegmentIndex].items[section].rows.count
     }
 
-    override func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(StoryBoard.Cells.cell, forIndexPath: indexPath) as! CategoryCell
-        cell.setItem(categoryItems[segmentedControl.selectedSegmentIndex].items[indexPath.section].rows[indexPath.row])
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: StoryBoard.Cells.cell, for: indexPath) as! CategoryCell
+        cell.setItem(categoryItems[segmentedControl.selectedSegmentIndex].items[(indexPath as NSIndexPath).section].rows[(indexPath as NSIndexPath).row])
         return cell
     }
     
-    override func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        let header = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: StoryBoard.SectionHeader.Identifier, forIndexPath: indexPath) 
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: StoryBoard.SectionHeader.Identifier, for: indexPath) 
         let label = header.viewWithTag(StoryBoard.SectionHeader.LabelTag) as? UILabel
-        label?.text = categoryItems[segmentedControl.selectedSegmentIndex].items[indexPath.section].header
+        label?.text = categoryItems[segmentedControl.selectedSegmentIndex].items[(indexPath as NSIndexPath).section].header
         return header
     }
     
-    override func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let item = categoryItems[segmentedControl.selectedSegmentIndex].items[indexPath.section].rows[indexPath.row]
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = categoryItems[segmentedControl.selectedSegmentIndex].items[(indexPath as NSIndexPath).section].rows[(indexPath as NSIndexPath).row]
         UserDefaults.setObject(item, forKey: UserDefaults.Keys.selectedBook)
-        NSNotificationCenter.defaultCenter().postNotification(NSNotification(name: AppConfiguration.Notifications.BookUpdate, object: nil))
-        self.navigationController?.popViewControllerAnimated(true)
+        NotificationCenter.default.post(Notification(name: Notification.Name(rawValue: AppConfiguration.Notifications.BookUpdate), object: nil))
+        self.navigationController?.popViewController(animated: true)
     }
 
 }

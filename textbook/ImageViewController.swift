@@ -38,21 +38,21 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
     }
     
     func initGestures() {
-        let singleTap = UITapGestureRecognizer(target: self, action: Selector("didSingleTap"))
-        let doubleTap = UITapGestureRecognizer(target: self, action: Selector("didDoubleTap"))
+        let singleTap = UITapGestureRecognizer(target: self, action: #selector(ImageViewController.didSingleTap))
+        let doubleTap = UITapGestureRecognizer(target: self, action: #selector(ImageViewController.didDoubleTap))
         doubleTap.numberOfTapsRequired = 2
-        singleTap.requireGestureRecognizerToFail(doubleTap)
+        singleTap.require(toFail: doubleTap)
         self.view.addGestureRecognizer(singleTap)
         self.view.addGestureRecognizer(doubleTap)
     }
     
-    func setImagePathIfExists(url: String) {
+    func setImagePathIfExists(_ url: String) {
         print("\(url)")
         if let scrollView = scrollView {
             scrollView.contentOffset = CGPoint(x: 0, y: 0)
         }
         if let imageView = imageView {
-            imageView.setImageWithURL(NSURL(string: url as String), usingActivityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+            imageView.setImageWith(URL(string: url as String), usingActivityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
         }
     }
     
@@ -68,7 +68,7 @@ class ImageViewController: UIViewController, UIScrollViewDelegate {
         }
     }
     
-    func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
     

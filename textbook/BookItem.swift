@@ -58,7 +58,7 @@ class BookItem {
             for page in pageArray {
                 if let page: NSDictionary = page as? NSDictionary {
                     let indexItem = IndexItem(dict: page)
-                    if (indexItem.title.rangeOfCharacterFromSet(NSCharacterSet.decimalDigitCharacterSet().invertedSet) != nil) {
+                    if (indexItem.title.rangeOfCharacter(from: CharacterSet.decimalDigits.inverted) != nil) {
                         indexes.append(indexItem)
                     }
                     

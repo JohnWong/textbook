@@ -15,7 +15,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
     var index: Int = 0
     var pageAnimationFinished = true
     
-    func setPages(pages: Array<IndexItem>, atIndex index: Int) {
+    func setPages(_ pages: Array<IndexItem>, atIndex index: Int) {
         self.pages = pages
         self.index = index
     }
@@ -32,7 +32,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         delegate = self
         configureView()
         for _ in 0...1 {
-            let controller: AnyObject! = UIStoryboard(name: "Main", bundle: NSBundle.mainBundle()).instantiateViewControllerWithIdentifier("Page")
+            let controller: AnyObject! = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "Page")
             if let controller = controller as? ImageViewController {
                 tempControllers.append(controller)
             }
@@ -40,12 +40,12 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         let imageController = tempControllers[0]
         imageController.imagePath = pages[index].link
 
-        setViewControllers(Array<ImageViewController>(arrayLiteral: imageController), direction: UIPageViewControllerNavigationDirection.Forward, animated: true, completion: { (result: Bool) -> Void in
+        setViewControllers(Array<ImageViewController>(arrayLiteral: imageController), direction: UIPageViewControllerNavigationDirection.forward, animated: true, completion: { (result: Bool) -> Void in
             
         })
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         if !pageAnimationFinished || index == 0 {
             return nil
         }
@@ -56,7 +56,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         return controller
     }
     
-    func pageViewController(pageViewController: UIPageViewController, viewControllerAfterViewController viewController: UIViewController) -> UIViewController? {
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         if !pageAnimationFinished || index == pages.count - 1 {
             return nil
         }
@@ -67,12 +67,12 @@ class PageViewController: UIPageViewController, UIPageViewControllerDataSource, 
         return controller
     }
     
-    func pageViewController(pageViewController: UIPageViewController, willTransitionToViewControllers pendingViewControllers: [UIViewController]) {
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         
         pageAnimationFinished = false
     }
     
-    func pageViewController(pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if let controller = pageViewController.viewControllers![0] as? ImageViewController {
             index = controller.index
         }

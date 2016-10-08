@@ -11,14 +11,14 @@ import UIKit
 class RequestCache: NSObject {
     
     static var cachePath: String = {
-        var paths = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.CachesDirectory, NSSearchPathDomainMask.UserDomainMask, true);
+        var paths = NSSearchPathForDirectoriesInDomains(FileManager.SearchPathDirectory.cachesDirectory, FileManager.SearchPathDomainMask.userDomainMask, true);
         var cacheDirectory = paths[0] 
-        cacheDirectory = (cacheDirectory as NSString).stringByAppendingPathComponent("RequestCache")
-        var fileManager = NSFileManager.defaultManager()
-        if !fileManager.fileExistsAtPath(cacheDirectory) {
+        cacheDirectory = (cacheDirectory as NSString).appendingPathComponent("RequestCache")
+        var fileManager = FileManager.default
+        if !fileManager.fileExists(atPath: cacheDirectory) {
             var error: NSError?
             do {
-                try fileManager.createDirectoryAtPath(cacheDirectory, withIntermediateDirectories: true, attributes: nil)
+                try fileManager.createDirectory(atPath: cacheDirectory, withIntermediateDirectories: true, attributes: nil)
                 if let error = error {
                     print("write failure: \(error.localizedDescription)")
                 }
@@ -31,13 +31,13 @@ class RequestCache: NSObject {
         return cacheDirectory
     }()
     
-    class func cacheResponse(response :String, forPath path: String) {
+    class func cacheResponse(_ response :String, forPath path: String) {
         let pathHash = cachedFileNameForKey(path)
-        let filePath = (self.cachePath as NSString).stringByAppendingPathComponent(pathHash);
+        let filePath = (self.cachePath as NSString).appendingPathComponent(pathHash);
         var writeError: NSError?
         let written: Bool
         do {
-            try response.writeToFile(filePath, atomically: true, encoding: NSUTF8StringEncoding)
+            try response.write(toFile: filePath, atomically: true, encoding: String.Encoding.utf8)
             written = true
         } catch let error as NSError {
             writeError = error
@@ -50,13 +50,13 @@ class RequestCache: NSObject {
         }
     }
     
-    class func getCachedResponseForPath(path: String) -> String? {
+    class func getCachedResponseForPath(_ path: String) -> String? {
         let pathHash = cachedFileNameForKey(path)
-        let filePath = (self.cachePath as NSString).stringByAppendingPathComponent(pathHash);
+        let filePath = (self.cachePath as NSString).appendingPathComponent(pathHash);
         var readError: NSError?
         var str: NSString?
         do {
-            str = try NSString(contentsOfFile: filePath, encoding: NSUTF8StringEncoding)
+            str = try NSString(contentsOfFile: filePath, encoding: String.Encoding.utf8.rawValue)
         } catch let error as NSError {
             readError = error
             str = nil
@@ -68,14 +68,14 @@ class RequestCache: NSObject {
     }
     
     class func clearCachedResponse() {
-        let fileManager = NSFileManager.defaultManager()
-        let cacheList = fileManager.subpathsAtPath(cachePath)
+        let fileManager = FileManager.default
+        let cacheList = fileManager.subpaths(atPath: cachePath)
         if let cacheList = cacheList {
             for cache in cacheList {
                 if let cache = cache as? String {
                     var error: NSError?
                     do {
-                        try fileManager.removeItemAtPath((self.cachePath as NSString).stringByAppendingPathComponent(cache))
+                        try fileManager.removeItem(atPath: (self.cachePath as NSString).appendingPathComponent(cache))
                     } catch let error1 as NSError {
                         error = error1
                     }
@@ -87,17 +87,17 @@ class RequestCache: NSObject {
         }
     }
     
-    class func cachedFileNameForKey(key: String) -> String {
-        let str = key.cStringUsingEncoding(NSUTF8StringEncoding)
-        let strLen = CUnsignedInt(key.lengthOfBytesUsingEncoding(NSUTF8StringEncoding))
+    class func cachedFileNameForKey(_ key: String) -> String {
+        let str = key.cString(using: String.Encoding.utf8)
+        let strLen = CUnsignedInt(key.lengthOfBytes(using: String.Encoding.utf8))
         let digestLen = Int(CC_MD5_DIGEST_LENGTH)
-        let result = UnsafeMutablePointer<CUnsignedChar>.alloc(digestLen)
+        let result = UnsafeMutablePointer<CUnsignedChar>.allocate(capacity: digestLen)
         CC_MD5(str!, strLen, result)
         let hash = NSMutableString()
         for i in 0..<digestLen {
             hash.appendFormat("%02x", result[i])
         }
-        result.destroy()
+        result.deinitialize()
         return hash as String
     }
 }

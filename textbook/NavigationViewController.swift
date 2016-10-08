@@ -28,9 +28,9 @@ class NavigationViewController: UINavigationController {
     }
     
 
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if selectedUrl >= 0 && selectedUrl < webUrls.count {
-            let webViewController: WebViewController = segue.destinationViewController as! WebViewController
+            let webViewController: WebViewController = segue.destination as! WebViewController
             webViewController.urlPath = webUrls[selectedUrl]
         }
     }

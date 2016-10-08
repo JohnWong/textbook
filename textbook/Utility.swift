@@ -10,19 +10,19 @@ import UIKit
 
 class Utility {
     
-    class func cleanString(str: String) -> String {
+    class func cleanString(_ str: String) -> String {
         return str
-            .stringByReplacingOccurrencesOfString("<b>", withString: "")
-            .stringByReplacingOccurrencesOfString("</b>", withString: "")
-            .stringByReplacingOccurrencesOfString("<strong>", withString: "")
-            .stringByReplacingOccurrencesOfString("</strong>", withString: "")
-            .stringByReplacingOccurrencesOfString("</srong>", withString: "")
-            .stringByReplacingOccurrencesOfString("<p>", withString: "")
-            .stringByReplacingOccurrencesOfString("</p>", withString: "")
+            .replacingOccurrences(of: "<b>", with: "")
+            .replacingOccurrences(of: "</b>", with: "")
+            .replacingOccurrences(of: "<strong>", with: "")
+            .replacingOccurrences(of: "</strong>", with: "")
+            .replacingOccurrences(of: "</srong>", with: "")
+            .replacingOccurrences(of: "<p>", with: "")
+            .replacingOccurrences(of: "</p>", with: "")
     }
    
     class func appVersion() -> String {
-        let infoDictionary: NSDictionary = NSBundle.mainBundle().infoDictionary!
-        return infoDictionary.objectForKey("CFBundleShortVersionString") as! String
+        let infoDictionary: NSDictionary = Bundle.main.infoDictionary! as NSDictionary
+        return infoDictionary.object(forKey: "CFBundleShortVersionString") as! String
     }
 }

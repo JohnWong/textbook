@@ -19,26 +19,26 @@ class RootViewController: RESideMenu {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector("cacheCleared"), name: AppConfiguration.Notifications.CacheClear, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RootViewController.cacheCleared), name: NSNotification.Name(rawValue: AppConfiguration.Notifications.CacheClear), object: nil)
     }
     
     deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
     override func awakeFromNib() {
         let storyboard: UIStoryboard = self.storyboard!
         
-        self.menuPreferredStatusBarStyle = UIStatusBarStyle.LightContent
-        self.contentViewShadowColor = UIColor.blackColor()
-        self.contentViewShadowOffset = CGSizeMake(0, 0);
+        self.menuPreferredStatusBarStyle = UIStatusBarStyle.lightContent
+        self.contentViewShadowColor = UIColor.black
+        self.contentViewShadowOffset = CGSize(width: 0, height: 0);
         self.contentViewShadowOpacity = 0.6;
         self.contentViewShadowRadius = 12;
         self.contentViewShadowEnabled = true;
     
         
-        self.contentViewController = storyboard.instantiateViewControllerWithIdentifier(StoryBoard.ControllerIdentifiers.contentViewController) 
-        self.leftMenuViewController = storyboard.instantiateViewControllerWithIdentifier(StoryBoard.ControllerIdentifiers.settingViewController) 
+        self.contentViewController = storyboard.instantiateViewController(withIdentifier: StoryBoard.ControllerIdentifiers.contentViewController) 
+        self.leftMenuViewController = storyboard.instantiateViewController(withIdentifier: StoryBoard.ControllerIdentifiers.settingViewController) 
         
         self.backgroundImage = UIImage(named: "Stars");
     }
