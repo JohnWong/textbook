@@ -37,7 +37,17 @@ def requesturl(url, encoding="gb18030"):
     print(url, encoding)
     request = urllib2.Request(url)
     response = urllib2.urlopen(request)
-    result = response.read().decode(encoding)
+    content = response.read()
+    try:
+        result = content.decode(encoding)
+        pass
+    except Exception, e:
+        result = content.decode("gbk")
+        raise
+    else:
+        pass
+    finally:
+        pass
     return BeautifulSoup(result, "html.parser")
 
 
@@ -138,6 +148,9 @@ def parseTable(listurl):
 
 
 def fetchsubject(url, title):
+    if url == 'http://xiaoyu.pep.com.cn/':
+        url = 'http://www.pep.com.cn/xiaoyu/'
+        pass
     print("Subject: " + url)
     doc = requesturl(url)
     headers = []
