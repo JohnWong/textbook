@@ -1,18 +1,23 @@
 PODS:
+  - Crashlytics (3.8.2):
+    - Fabric (~> 1.6.3)
+  - Fabric (1.6.9)
   - HexColors (2.2.1)
   - RESideMenu (4.0.7)
   - Reveal-iOS-SDK (1.0.6)
-  - SDWebImage (3.7.2):
-    - SDWebImage/Core (= 3.7.2)
-  - SDWebImage/Core (3.7.2)
+  - SDWebImage (3.7.3):
+    - SDWebImage/Core (= 3.7.3)
+  - SDWebImage/Core (3.7.3)
   - SGNavigationProgress (1.2)
   - STHTTPRequest (1.0.2)
   - TSMessages (0.9.12):
-    - HexColors
+    - HexColors (~> 2.2.0)
   - UIActivityIndicator-for-SDWebImage (1.2):
     - SDWebImage (~> 3.7)
 
 DEPENDENCIES:
+  - Crashlytics (= 3.8.2)
+  - Fabric (~> 1.6.3)
   - RESideMenu
   - Reveal-iOS-SDK (= 1.0.6)
   - SGNavigationProgress (from `https://raw.githubusercontent.com/JohnWong/SGNavigationProgress/master/SGNavigationProgress.podspec`)
@@ -25,13 +30,15 @@ EXTERNAL SOURCES:
     :podspec: https://raw.githubusercontent.com/JohnWong/SGNavigationProgress/master/SGNavigationProgress.podspec
 
 SPEC CHECKSUMS:
+  Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
+  Fabric: bc5bec42cef4bcf1ee3ce0e218fc518e4b44dfbb
   HexColors: abfd172e329dab59888614ccba6f216cec59289d
   RESideMenu: f24c508404b49c667344c54aba7e590883533958
   Reveal-iOS-SDK: 5c06829ab290f1314d15c0f66aaa572fd2342c81
-  SDWebImage: 71b7cdc1d1721d6a82ed62889030225f2c249e29
+  SDWebImage: 1d2b1a1efda1ade1b00b6f8498865f8ddedc8a84
   SGNavigationProgress: 6620db991cfd7611f8de036f4d6536c903cf0557
   STHTTPRequest: f4ca4e3ca31ebd9b54c134aa721ddd1711f1089d
-  TSMessages: 2a52642128d7ab15b46930c810b9c9403a2b58f3
+  TSMessages: c8cc7b80f2a833af533872cd02010cac061532cc
   UIActivityIndicator-for-SDWebImage: 7bf7ebbf0ed1747dedc0d6e949c4603a6d0f9e0c
 
-COCOAPODS: 0.36.0
+COCOAPODS: 0.39.0
